@@ -70,13 +70,19 @@
     }
 
     function makeFile(data, fileName) {
+        var dir = __dirname + "/Output/";
         if (fileName === undefined) {
             fileName = 'Meter_Readings';
         } else {
             fileName = fileName.toString();
         }
         var writer = data;
-        fs.writeFile(__dirname + "/Output/" + fileName + ".txt", writer, function(err) {
+
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+
+        fs.writeFile(dir + fileName + ".txt", writer, function(err) {
             if (err) {
                 return console.log(err);
             }
