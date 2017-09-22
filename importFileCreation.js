@@ -450,7 +450,7 @@
     if (process.argv[2] === undefined) {
         console.log('enter \'help\' for cli arguments');
     } else if (process.argv[2].toLowerCase() === 'help') {
-        console.log('Arguments: \n 01 Four digit year [ex:1999|2016] \n 02 Month number [ex:12|1] \n 03 Start date number [ex:31|1] \n 04 Duration from start date in days [ex:500|10|3]\n 05 Number of meters to create [-1 To use contents of a fil] \n 06 Name of output file \n 07 Starting usage \n 08 Daily usage desired \n 09 Number of readings per day [24|48|96|288] \n 10 Parser number [1 for MEPMD01] \n 11 Flow Direction [NET|TOTAL|REVERSE|FORWARD]\n 12 Meter name\n 13 Use prefix? [true|false]\n 14 Random Missing Readings? [true|false]\n 15 Random Digits in MeterName? [true|false] \n 16 Use UTC Offset [true|false]');
+        console.log('Arguments: \n 01 Four digit year [ex:1999|2016] \n 02 Month number [ex:12|1] \n 03 Start date number [ex:31|1] \n 04 Duration from start date in days [ex:500|10|3]\n 05 Number of meters to create [-1 To use contents of a file] \n 06 Name of output file \n 07 Starting usage \n 08 Daily usage desired \n 09 Number of readings per day [24|48|96|288] \n 10 Parser number [1 for MEPMD01] \n 11 Flow Direction [NET|TOTAL|REVERSE|FORWARD]\n 12 Meter name ["_" if using input file]\n 13 Use prefix? [true|false]\n 14 Random Missing Readings? [true|false]\n 15 Random Digits in MeterName? [true|false] \n 16 Use UTC Offset [true|false]');
     } else if (process.argv[2] === undefined || process.argv[2].length != 4) {
         console.log('please enter a four digit year');
     } else if (process.argv[10] === undefined) {
