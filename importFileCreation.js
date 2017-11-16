@@ -36,7 +36,8 @@
 
 
     function randomIntFromInterval(min,max){
-        return (Math.floor((Math.random()*(max-min+1)+min)* 1000)) / 1000;
+        var number = (Math.floor((Math.random()*(max-min)+min) * 10000)) / 10000;
+        return number;
     }
 
     function padNumber(number) {
@@ -131,17 +132,33 @@
         }
     }
 
-    function monthTransition(intervalRowSegment, readingsPerDay,lastDayYyyy, 
-    						 lastDayMm, lastDayDd) {
-        if (intervalRowSegment === 18 && readingsPerDay === 24) {
-            return translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-        } else if (readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) { //inprocess!!!!
-            return translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-        } else if (readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
-            return translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-        } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
-            return translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+    function monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
+        console.log(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+        var date = [];
+        if (hh === 5) {
+            if (intervalRowSegment === 18 && readingsPerDay === 24) {
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+            } else if (readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) { //inprocess!!!!
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+            } else if (readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+            } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+            }
+        } else if (hh === 0) {
+        console.log('intervalRowSegment\n',intervalRowSegment, 'readingsPerDay',readingsPerDay);            
+            if (intervalRowSegment === 23 && readingsPerDay === 24) {
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);         
+            } else if (readingsPerDay === 48 && intervalRowSegment === ((23 * 2) + 1)) { //inprocess!!!!
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+            } else if (readingsPerDay === 96 && intervalRowSegment === ((23 * 4) + 3)) {
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+            } else if (readingsPerDay === 288 && intervalRowSegment === (23 * 4 * 3) + 11) {
+                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
+            }
         }
+        console.log('monthTransition', date);
+        return date;
 
     }
 
@@ -190,8 +207,6 @@
                     if (a.indexOf('REGISTER_READ_PLACEHOLDER') > 0) {
                         if(useLifeLikeData){
                             a = a.replace('REGISTER_READ_PLACEHOLDER', buildingCumulative);
-                            console.log(k,l,h);
-                            console.log(cumulativeReadingValuesCollection[k][l]);
                             buildingCumulative += cumulativeReadingValuesCollection[k][l]; 
                         }else{
                             a = a.replace('REGISTER_READ_PLACEHOLDER', (dailyRegisterRead * registerReadCounter) + startingUsage);
@@ -202,13 +217,14 @@
                     b.push(a);
                 }
                 if (l === stop - 1) { //flawed
+                    console.log('a\n', a);
                     var lastRegisterReadRow = [];
                     lastRegisterReadRow = meterText[0].split(',');
+                    console.log('1 lastRegisterReadRow\n',lastRegisterReadRow);
                     lastRegisterReadRow[14] = parseInt(lastRegisterReadRow[14]) + 10000;//the worst sort of magic string
+                    console.log('2 lastRegisterReadRow\n',lastRegisterReadRow);
                     lastRegisterReadRow = lastRegisterReadRow.join(',');
                     if(useLifeLikeData){
-                        //console.log(cumulativeReadingValuesCollection[k][cumulativeReadingValuesCollection[k].length-1]);
-                        //buildingCumulative += cumulativeReadingValuesCollection[k][cumulativeReadingValuesCollection[k].length-1];
                         b.push(lastRegisterReadRow.replace('METER_NUMBER_PLACEHOLDER', meterNumbers[k]).replace('REGISTER_READ_PLACEHOLDER', buildingCumulative));
                         buildingCumulative = startingUsage;
                     }else{
@@ -268,25 +284,29 @@
         }
     }
 
-    function createLifeLikePseudoRandomInterval(hourOfTheDay){
-        var multiplier = 1;
-        var getMultiplier = getBooleanValue(0.9);
-        console.log(getMultiplier);
-        if(getMultiplier){
-            multiplier = randomIntFromInterval(0, 1);
-            console.log('multiplier applied',multiplier);
-        }
+    function getScaledIntervaBound(unscaledMax, multiplier, intervalMultiplier){
+        return (unscaledMax / intervalMultiplier)  * multiplier;
+    }
 
-        if(hourOfTheDay <= 5){
-            return randomIntFromInterval(0,0.25 * multiplier);
-        }else if(hourOfTheDay <= 10){
-            return randomIntFromInterval(0.25, 3.5  * multiplier);
-        }else if(hourOfTheDay <= 15){
-            return randomIntFromInterval(0.25, 2 * multiplier);
-        }else if(hourOfTheDay <= 20){
-            return randomIntFromInterval(2,6  * multiplier);
+    function createLifeLikePseudoRandomInterval(hourOfTheDay, readingsPerDay){
+        var multiplier = 1;
+        //var intervalMultiplier =  (24 / readingsPerDay);
+        var intervalMultiplier = (readingsPerDay / 24);
+        var useMultiplier = readingsPerDay === 24 ? getBooleanValue(0.9) : false;
+        if(useMultiplier){
+            multiplier = randomIntFromInterval(0, 1);
+            //console.log('multiplier applied',multiplier);
+        }
+        if(hourOfTheDay <= 5 * intervalMultiplier){
+            return randomIntFromInterval(getScaledIntervaBound(0, 1, intervalMultiplier), getScaledIntervaBound(0.25, multiplier, intervalMultiplier));
+        }else if(hourOfTheDay <= 10 * intervalMultiplier){
+            return randomIntFromInterval(getScaledIntervaBound(0.25, 1, intervalMultiplier), getScaledIntervaBound(3.5, multiplier, intervalMultiplier));
+        }else if(hourOfTheDay <= 15 * intervalMultiplier){
+            return randomIntFromInterval(getScaledIntervaBound(0.25, 1, intervalMultiplier), getScaledIntervaBound(2,  multiplier, intervalMultiplier));
+        }else if(hourOfTheDay <= 20 * intervalMultiplier){
+            return randomIntFromInterval(getScaledIntervaBound(2, 1, intervalMultiplier), getScaledIntervaBound(6, multiplier, intervalMultiplier));
         }else{
-            return randomIntFromInterval(0.05, 1.25 * multiplier);
+            return randomIntFromInterval(getScaledIntervaBound(0.05, 1, intervalMultiplier), getScaledIntervaBound(1.25, multiplier, intervalMultiplier));
         }
     }
 
@@ -411,7 +431,10 @@
                             intervalLengthTimeValue = 5;
                         }
                     }
-                    if (isLastDayOfMonth) {
+                    if (isLastDayOfMonth) {                        
+                    /*
+                        This is the section of logic that is causing the last 5 hour's of each month to be blank!
+                    */
                         var lastDayMm = 0;
                         var lastDayYyyy = 0;
                         //TODO: this logic is repeated at the end of the main forLoop, condense these two places ~ln. 255
@@ -423,20 +446,37 @@
                             lastDayYyyy = yyyy + 1;
                         }
                         var lastDayDd = 1;
-                        if (intervalRowSegment === 18 && readingsPerDay === 24) {
-                            dates = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-                            intervalLengthTimeValue = 0;
-                        } else if (readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) { 
-                            dates = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-                            intervalLengthTimeValue = 0;
-                        } else if (readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
-                            dates = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-                            intervalLengthTimeValue = 0;
-                        } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
-                            dates = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-                            intervalLengthTimeValue = 0;
-                        }
-                        //dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd);
+                        console.log('dates before if\n', dates);
+                        if(hh === 5){
+                            if (intervalRowSegment === 18  && readingsPerDay === 24) {
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            } else if (readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) { 
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            } else if (readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            }
+                        } else if (hh === 0){
+                            if (intervalRowSegment === 23  && readingsPerDay === 24) {
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            } else if (readingsPerDay === 48 && intervalRowSegment === ((23 * 2) + 1)) { 
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            } else if (readingsPerDay === 96 && intervalRowSegment === ((23 * 4) + 3)) {
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            } else if (readingsPerDay === 288 && intervalRowSegment === (23 * 4 * 3) + 11) {
+                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                                intervalLengthTimeValue = 0;
+                            }
+                        }          
+                        console.log('dates after if\n', dates);
                         //intervalLengthTimeValue = 0;
                         countDown.initCountDown(syncDdAndDayOfTheMonthCount(lastDayDd, monthEngine(lastDayYyyy, lastDayMm)));
                     } else {
@@ -450,9 +490,9 @@
                     }
 
                     if(genRandomLifeLikeData === true){
-                        intervalValue = createLifeLikePseudoRandomInterval(intervalRowSegment);
+                        intervalValue = createLifeLikePseudoRandomInterval(intervalRowSegment, readingsPerDay);
                         intervalValues.push(intervalValue);
-                        if(intervalRowSegment === 23){
+                        if(intervalRowSegment === readingsPerDay - 1){
                             cumulativeReadingValues.push(addIntervalsToCumulative(intervalValues));
                             intervalValues = [];
                         }
@@ -494,15 +534,15 @@
                 dd++;
                 dayOfTheMonthCount++;
                 countDown.decrement();
-                if (isLastDayOfMonth) { //TODO: abstract, simplify with ln. ~191
-                    mm++;
-                    if (mm > 12) {
-                        mm = 1;
-                        yyyy++;
-                    }
-                    dd = 1;
-                    dayOfTheMonthCount = 0;
-                }
+                //if (isLastDayOfMonth) { //TODO: abstract, simplify with ln. ~191
+                //    mm++;
+                //    if (mm > 12) {
+                //        mm = 1;
+                //        yyyy++;
+                //    }
+                //    dd = 1;
+                //    dayOfTheMonthCount = 0;
+                //}
             }
             cumulativeReadingValuesCollection.push(cumulativeReadingValues);
             cumulativeReadingValues = [];
@@ -527,6 +567,43 @@
                             fileName, startingUsage, dailyUsage, readingsPerDay, parser, 
                             flowDirection, meterName, usePrefix, randomMissingReadings, 
                             randomDigitsInName, useUtcOffset, genRandomLifeLikeData) { //don't bridge years ftm
+    console.log('------------------------------------------',
+                '\n--------------Parameters Used-------------',
+                '\n------------------------------------------',
+                '\n01| startYear:',startYear,
+                '\n------------------------------------------',
+                '\n02| month:',month,
+                '\n------------------------------------------',
+                '\n03| startDay:',startDay,
+                '\n------------------------------------------',
+                '\n04| durationInDays:',durationInDays,
+                '\n------------------------------------------',
+                '\n05| howManyMeters:',howManyMeters,
+                '\n------------------------------------------',
+                '\n06| fileName:',fileName,
+                '\n------------------------------------------',
+                '\n07| startingUsage:',startingUsage,
+                '\n------------------------------------------',
+                '\n08| dailyUsage:',dailyUsage,
+                '\n------------------------------------------',
+                '\n09| readingsPerDay:',readingsPerDay,
+                '\n------------------------------------------',
+                '\n10| parser:',parser,
+                '\n------------------------------------------',
+                '\n11| flowDirection:',flowDirection,
+                '\n------------------------------------------',
+                '\n12| meterName:',meterName,
+                '\n------------------------------------------',
+                '\n13| usePrefix:',usePrefix,
+                '\n------------------------------------------',
+                '\n14| randomMissingReadings:',randomMissingReadings,
+                '\n------------------------------------------',
+                '\n15| randomDigitsInName:',randomDigitsInName,
+                '\n------------------------------------------',
+                '\n16| useUtcOffset:',useUtcOffset,
+                '\n------------------------------------------',
+                '\n17| genRandomLifeLikeData:',genRandomLifeLikeData,
+                '\n------------------------------------------');
         var data;
         if (readingsPerDay != 24 && readingsPerDay != 48 && readingsPerDay != 96 && readingsPerDay != 288 && readingsPerDay != 1440) {
             console.log('Please Choose 24, 48, 96, or 288 readings per day');
