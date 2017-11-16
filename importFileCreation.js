@@ -133,7 +133,6 @@
     }
 
     function monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
-        console.log(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
         var date = [];
         if (hh === 5) {
             if (intervalRowSegment === 18 && readingsPerDay === 24) {
@@ -145,8 +144,7 @@
             } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
                     date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
             }
-        } else if (hh === 0) {
-        console.log('intervalRowSegment\n',intervalRowSegment, 'readingsPerDay',readingsPerDay);            
+        } else if (hh === 0) {            
             if (intervalRowSegment === 23 && readingsPerDay === 24) {
                     date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);         
             } else if (readingsPerDay === 48 && intervalRowSegment === ((23 * 2) + 1)) { //inprocess!!!!
@@ -157,7 +155,6 @@
                     date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
             }
         }
-        console.log('monthTransition', date);
         return date;
 
     }
@@ -217,12 +214,11 @@
                     b.push(a);
                 }
                 if (l === stop - 1) { //flawed
-                    console.log('a\n', a);
-                    var lastRegisterReadRow = [];
+                    var lastIntervalRow = a.split(',');
+                    var dateFromLastInterval = lastIntervalRow[lastIntervalRow.length-3];
+                    var lastRegisterReadRow = dateFromLastInterval;
                     lastRegisterReadRow = meterText[0].split(',');
-                    console.log('1 lastRegisterReadRow\n',lastRegisterReadRow);
-                    lastRegisterReadRow[14] = parseInt(lastRegisterReadRow[14]) + 10000;//the worst sort of magic string
-                    console.log('2 lastRegisterReadRow\n',lastRegisterReadRow);
+                    lastRegisterReadRow[14] = dateFromLastInterval;
                     lastRegisterReadRow = lastRegisterReadRow.join(',');
                     if(useLifeLikeData){
                         b.push(lastRegisterReadRow.replace('METER_NUMBER_PLACEHOLDER', meterNumbers[k]).replace('REGISTER_READ_PLACEHOLDER', buildingCumulative));
@@ -284,29 +280,27 @@
         }
     }
 
-    function getScaledIntervaBound(unscaledMax, multiplier, intervalMultiplier){
+    function getScaledIntervalBound(unscaledMax, multiplier, intervalMultiplier){
         return (unscaledMax / intervalMultiplier)  * multiplier;
     }
 
     function createLifeLikePseudoRandomInterval(hourOfTheDay, readingsPerDay){
         var multiplier = 1;
-        //var intervalMultiplier =  (24 / readingsPerDay);
         var intervalMultiplier = (readingsPerDay / 24);
         var useMultiplier = readingsPerDay === 24 ? getBooleanValue(0.9) : false;
         if(useMultiplier){
             multiplier = randomIntFromInterval(0, 1);
-            //console.log('multiplier applied',multiplier);
         }
         if(hourOfTheDay <= 5 * intervalMultiplier){
-            return randomIntFromInterval(getScaledIntervaBound(0, 1, intervalMultiplier), getScaledIntervaBound(0.25, multiplier, intervalMultiplier));
+            return randomIntFromInterval(getScaledIntervalBound(0, 1, intervalMultiplier), getScaledIntervalBound(0.25, multiplier, intervalMultiplier));
         }else if(hourOfTheDay <= 10 * intervalMultiplier){
-            return randomIntFromInterval(getScaledIntervaBound(0.25, 1, intervalMultiplier), getScaledIntervaBound(3.5, multiplier, intervalMultiplier));
+            return randomIntFromInterval(getScaledIntervalBound(0.25, 1, intervalMultiplier), getScaledIntervalBound(3.5, multiplier, intervalMultiplier));
         }else if(hourOfTheDay <= 15 * intervalMultiplier){
-            return randomIntFromInterval(getScaledIntervaBound(0.25, 1, intervalMultiplier), getScaledIntervaBound(2,  multiplier, intervalMultiplier));
+            return randomIntFromInterval(getScaledIntervalBound(0.25, 1, intervalMultiplier), getScaledIntervalBound(2,  multiplier, intervalMultiplier));
         }else if(hourOfTheDay <= 20 * intervalMultiplier){
-            return randomIntFromInterval(getScaledIntervaBound(2, 1, intervalMultiplier), getScaledIntervaBound(6, multiplier, intervalMultiplier));
+            return randomIntFromInterval(getScaledIntervalBound(2, 1, intervalMultiplier), getScaledIntervalBound(6, multiplier, intervalMultiplier));
         }else{
-            return randomIntFromInterval(getScaledIntervaBound(0.05, 1, intervalMultiplier), getScaledIntervaBound(1.25, multiplier, intervalMultiplier));
+            return randomIntFromInterval(getScaledIntervalBound(0.05, 1, intervalMultiplier), getScaledIntervalBound(1.25, multiplier, intervalMultiplier));
         }
     }
 
@@ -431,13 +425,9 @@
                             intervalLengthTimeValue = 5;
                         }
                     }
-                    if (isLastDayOfMonth) {                        
-                    /*
-                        This is the section of logic that is causing the last 5 hour's of each month to be blank!
-                    */
+                    if (isLastDayOfMonth) {
                         var lastDayMm = 0;
                         var lastDayYyyy = 0;
-                        //TODO: this logic is repeated at the end of the main forLoop, condense these two places ~ln. 255
                         if (mm < 12) {
                             lastDayMm = mm + 1;
                             lastDayYyyy = yyyy;
@@ -446,7 +436,6 @@
                             lastDayYyyy = yyyy + 1;
                         }
                         var lastDayDd = 1;
-                        console.log('dates before if\n', dates);
                         if(hh === 5){
                             if (intervalRowSegment === 18  && readingsPerDay === 24) {
                                 dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
@@ -475,9 +464,7 @@
                                 dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
                             }
-                        }          
-                        console.log('dates after if\n', dates);
-                        //intervalLengthTimeValue = 0;
+                        }
                         countDown.initCountDown(syncDdAndDayOfTheMonthCount(lastDayDd, monthEngine(lastDayYyyy, lastDayMm)));
                     } else {
                         intervalLengthTimeValue += dateTransition(intervalRowSegment, readingsPerDay, hh);
@@ -534,15 +521,15 @@
                 dd++;
                 dayOfTheMonthCount++;
                 countDown.decrement();
-                //if (isLastDayOfMonth) { //TODO: abstract, simplify with ln. ~191
-                //    mm++;
-                //    if (mm > 12) {
-                //        mm = 1;
-                //        yyyy++;
-                //    }
-                //    dd = 1;
-                //    dayOfTheMonthCount = 0;
-                //}
+                if (isLastDayOfMonth) { //TODO: abstract, simplify with ln. ~191
+                   mm++;
+                    if (mm > 12) {
+                        mm = 1;
+                        yyyy++;
+                    }
+                    dd = 1;
+                   dayOfTheMonthCount = 0;
+               }
             }
             cumulativeReadingValuesCollection.push(cumulativeReadingValues);
             cumulativeReadingValues = [];
