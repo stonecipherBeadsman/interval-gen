@@ -368,30 +368,7 @@
         flowDirection = setUOM(flowDirection);
         intUom = flowDirection.intUom;
         regUom = flowDirection.regUom;
-        /*
-            For the number of iterations equal to the lengtgh of day that is specified by the input
-                Find the number of days in the "current" month (reletive to the start date)  
-                If this is the first iteration 
-                    Set the number of days left in the month to the differance between the given start date and total days in the month
-                    Initiate the countdown with the number of days left in the month
-                Store the result of isLastDayOfTheMonth()
-                Store translated date values
-                Store the base String template for the Readings
-                For the number of Readings per day 
-                    If the this is the first section of data for a row of intervals (Interval row segment % Readings per day = 0) 
-                        Set the first part of the row to the {{interval-length,readings-per-line}}
-                        Turn over the counter (i.e. if this is not the first round of the loop then start the counter over at 0)
-                        Increment the counter 
-                        Increment the intervalLengthTimeValue by the interval length value (i.e. 100 for 1 hr, 30 for 1/2 hr etc.)
-                    If it is the last day of the month check to see how to increment the month value and year value
-                        If the month is not December
-                            Add one to the month
-                            Set year to the year
-                        Else 
-                            Set month to January
-                            Set year to year + 1
-                        ...finish please...
-        */
+
         do {
             for (var x = 0; x < durationInDays; x++) {
                 daysInCurrentMonth = monthEngine(yyyy, mm);
