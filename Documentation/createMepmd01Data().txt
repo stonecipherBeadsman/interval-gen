@@ -1,0 +1,55 @@
+createMepmd01Data(){  
+    Do all the following while lifeLikeMetersCounter is more than 0
+        For the number of iterations equal to the lengtgh of day that is specified by the input
+            Find the number of days in the "current" month (reletive to the start date)  
+            If this is the first iteration 
+                Set the number of days left in the month to the differance between the given start date and total days in the month
+                Initiate the countdown with the number of days left in the month
+            Store the result of isLastDayOfTheMonth()
+            Store translated date values
+            Store the base String template for the Readings
+            For the number of Readings per day 
+                If this is the first section of data for a row of intervals (Interval row segment % Readings per day = 0) 
+                    Set the first part of the row to the {{interval-length,readings-per-line}}
+                    Turn over the counter (i.e. if this is not the first round of the loop then start the counter over at 0)
+                    Increment the counter 
+                    Increment the intervalLengthTimeValue by the interval length value (i.e. 100 for 1 hr, 30 for 1/2 hr etc.)
+                If it is the last day of the month check to see how to increment the month value and year value
+                    If the month is not December
+                        Add one to the month
+                        Set year to the year
+                    Else 
+                        Set month to January
+                        Set year to year + 1
+                    If Using the UTC Offset 
+                        Find the point at which the date time string is transitioned to the abutting day, this is at the 18th interval for 24 interval/day
+                        reset intervalLengthTimeValue
+                    If not using the UTC Offset
+                        Find the point at which the date time string is transitioned to the abutting day, this is at the 23rd interval for 24 interval/day  
+                        reset intervalLengthTimeValue
+                    Start a new countdown for the next month
+                Else update the intervalLengthTimeValue with the transitioned date time
+                Add a comma to the row unless this is the last segment
+                If genRandomLifeLikeData is set to true
+                    Create a value for the interval
+                    Put the value in a list
+                    If it is the last day
+                        Add up the intervals and put them in the cumulativeReadingValues
+                        Clear intervalValues
+                Else 
+                    Just divide the dailyRegisterRead by the readingsPerDay 
+                Add values to the meterText
+                Add the correct interval value to the intervalLengthTimeValue
+                Push the row into the monthList
+                Update dd dayOfTheMonthCount and countDown
+                If isLastDayOfMonth is true
+                    update the date
+            Add the cumulativeReadingValues to the cumulativeReadingValuesCollection
+            Clear the cumulativeReadingValues and intervalValue
+            Update the lifeLikeMetersCounter
+            Reset the yyyy mm dd hh
+    Create the meter numbers and add them to a list
+    Combinde the Register Readings with the meterText values and add them to a list
+    Feed that list through the file formating loop
+    Return that formatted data
+}
