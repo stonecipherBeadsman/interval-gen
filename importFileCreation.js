@@ -229,8 +229,6 @@
                 }
                 a = [];
             }
-            start = stop;
-            stop += numberOfCumulativesPerMeter;
             registerReadCounter = 0;
         }
         return b;
@@ -347,7 +345,7 @@
         var hh = setUtsOffset(useUtcOffset);
         var monthList = [];
         var dates = [];
-        var meterNumberList = [];
+        var meterNumberList = createMeterNumbers(howManyMeters, meterName, usePrefix, randomDigitsInName);
         var completeRawMeterReadingsList = [];
         var textOut = '';
         var counter = new Counter(readingsPerDay);
@@ -359,11 +357,12 @@
         var regUom = '';
         var intUom = '';
         var protocolCode = 'A';
+        var intervalProtocolCode = '';
         var intervalValue = 0;
         var intervalValues = [];
         var cumulativeReadingValues = [];
         var cumulativeReadingValuesCollection = [];
-        var lifeLikeMetersCounter = howManyMeters;
+        var lifeLikeMetersCounter = meterNumberList.length;
 
         flowDirection = setUOM(flowDirection);
         intUom = flowDirection.intUom;
@@ -478,7 +477,12 @@
                         intervalValue = dailyRegisterRead / readingsPerDay;
                     }
 
-                    meterText[1] += (parseInt(dates[0]) + intervalLengthTimeValue) + ',' + getProtocolCode(randomMissingReadings, protocolCode) + ',' + intervalValue + comma;
+                    intervalProtocolCode = getProtocolCode(randomMissingReadings, protocolCode);
+                    if(intervalProtocolCode !== 'A'){
+                        intervalValue = '';
+                    }
+
+                    meterText[1] += (parseInt(dates[0]) + intervalLengthTimeValue) + ',' + intervalProtocolCode + ',' + intervalValue + comma;
 
                     if (readingsPerDay === 24) {
                         intervalLengthTimeValue += 100;
@@ -533,7 +537,6 @@
             hh = setUtsOffset(useUtcOffset);
         } while (lifeLikeMetersCounter > 0);
 
-        meterNumberList = createMeterNumbers(howManyMeters, meterName, usePrefix, randomDigitsInName);
         completeRawMeterReadingsList = addRegisterReadAndMeterNumbersMepmd01(meterNumberList, monthList, dailyRegisterRead, startingUsage, meterText, cumulativeReadingValuesCollection, genRandomLifeLikeData); //, yyyy, mm);
         for (var fileLine = 0; fileLine < completeRawMeterReadingsList.length; fileLine++) {
             textOut += (completeRawMeterReadingsList[fileLine] + '\n');
@@ -603,7 +606,43 @@
     if (process.argv[2] === undefined) {
         console.log('enter \'help\' for cli arguments');
     } else if (process.argv[2].toLowerCase() === 'help') {
-        console.log('Arguments: \n 01 Four digit year [ex:1999|2016] \n 02 Month number [ex:12|1] \n 03 Start date number [ex:31|1] \n 04 Duration from start date in days [ex:500|10|3]\n 05 Number of meters to create [-1 To use contents of a file] \n 06 Name of output file \n 07 Starting usage \n 08 Daily usage desired \n 09 Number of readings per day [24|48|96|288] \n 10 Parser number [1 for MEPMD01] \n 11 Flow Direction [NET|TOTAL|REVERSE|FORWARD]\n 12 Meter name ["_" if using input file]\n 13 Use prefix? [true|false]\n 14 Random Missing Readings? [true|false]\n 15 Random Digits in MeterName? [true|false] \n 16 Use UTC Offset [true|false]\n 17 Generate Life Like Data [true|false]');
+        console.log(  '----------------------------------------------------------------',
+                    '\n-------------------------Arguments------------------------------', 
+                    '\n----------------------------------------------------------------',
+                    '\n 01| Four digit year [ex:1999|2016]',
+                    '\n----------------------------------------------------------------',
+                    '\n 02| Month number [ex:12|1]',
+                    '\n----------------------------------------------------------------',
+                    '\n 03| Start date number [ex:31|1]',
+                    '\n----------------------------------------------------------------',
+                    '\n 04| Duration from start date in days [ex:500|10|3]',
+                    '\n----------------------------------------------------------------',
+                    '\n 05| Number of meters to create [-1 To use /Input/meterList.txt]',
+                    '\n----------------------------------------------------------------',
+                    '\n 06| Name of output file',
+                    '\n----------------------------------------------------------------',
+                    '\n 07| Starting usage',
+                    '\n----------------------------------------------------------------',
+                    '\n 08| Daily usage desired',
+                    '\n----------------------------------------------------------------',
+                    '\n 09| Number of readings per day [24|48|96|288]',
+                    '\n----------------------------------------------------------------',
+                    '\n 10| Parser number [1 for MEPMD01]',
+                    '\n----------------------------------------------------------------',
+                    '\n 11| Flow Direction [NET|TOTAL|REVERSE|FORWARD]',
+                    '\n----------------------------------------------------------------',
+                    '\n 12| Meter name ["_" if using input file]',
+                    '\n----------------------------------------------------------------',
+                    '\n 13| Use prefix? [true|false]',
+                    '\n----------------------------------------------------------------',
+                    '\n 14| Random Missing Readings? [true|false] BROKEN',
+                    '\n----------------------------------------------------------------',
+                    '\n 15| Random Digits in MeterName? [true|false]',
+                    '\n----------------------------------------------------------------',
+                    '\n 16| Use UTC Offset [true|false]',
+                    '\n----------------------------------------------------------------',
+                    '\n 17| Generate Life Like Data [true|false]',
+                    '\n----------------------------------------------------------------');
     } else if (process.argv[2] === undefined || process.argv[2].length != 4) {
         console.log('please enter a four digit year');
     } else if (process.argv[10] === undefined) {
