@@ -6,6 +6,7 @@
     var path = require('path');
     var monthEngine = require("./Helper/monthEngine.js");
     var Counter = require("./Helper/Counter.js");
+    var createGenericAssetImportFiles = require("./Helper/genericAssetImportFileCreation.js");
 
     function getBooleanValue(value) {
         if(value === undefined){
@@ -363,6 +364,7 @@
         var cumulativeReadingValues = [];
         var cumulativeReadingValuesCollection = [];
         var lifeLikeMetersCounter = meterNumberList.length;
+        var ret = {};
 
         flowDirection = setUOM(flowDirection);
         intUom = flowDirection.intUom;
@@ -541,13 +543,15 @@
         for (var fileLine = 0; fileLine < completeRawMeterReadingsList.length; fileLine++) {
             textOut += (completeRawMeterReadingsList[fileLine] + '\n');
         }
-        return textOut;
+        ret.data = textOut;
+        ret.meterNumberList = meterNumberList ;
+        return ret;
     }
 
     function createReadings(startYear, month, startDay, durationInDays, howManyMeters, 
                             fileName, startingUsage, dailyUsage, readingsPerDay, parser, 
                             flowDirection, meterName, usePrefix, randomMissingReadings, 
-                            randomDigitsInName, useUtcOffset, genRandomLifeLikeData) { //don't bridge years ftm
+                            randomDigitsInName, useUtcOffset, genRandomLifeLikeData, createGAIFileForMeters) { 
     console.log('------------------------------------------',
                 '\n--------------Parameters Used-------------',
                 '\n------------------------------------------',
@@ -584,7 +588,8 @@
                 '\n16| useUtcOffset:',useUtcOffset,
                 '\n------------------------------------------',
                 '\n17| genRandomLifeLikeData:',genRandomLifeLikeData,
-                '\n------------------------------------------');
+                '\n------------------------------------------,',
+                '\n18| createGAIFileForMeters:',createGAIFileForMeters);
         var data;
         if (readingsPerDay != 24 && readingsPerDay != 48 && readingsPerDay != 96 && readingsPerDay != 288 && readingsPerDay != 1440) {
             console.log('Please Choose 24, 48, 96, or 288 readings per day');
@@ -597,7 +602,12 @@
                             startingUsage, dailyUsage, readingsPerDay, 
                             flowDirection, meterName, usePrefix, randomMissingReadings, 
                             randomDigitsInName, useUtcOffset, genRandomLifeLikeData);
-                    makeFile(data, fileName);
+
+                    makeFile(data.data, fileName);
+
+                    if(createGAIFileForMeters){
+                        createGenericAssetImportFiles(data.meterNumberList, fileName);
+                    }
                 }
             }
         }
@@ -642,6 +652,8 @@
                     '\n 16| Use UTC Offset [true|false]',
                     '\n----------------------------------------------------------------',
                     '\n 17| Generate Life Like Data [true|false]',
+                    '\n----------------------------------------------------------------',
+                    '\n 18| Create Asset Import File for Meters? [true|false]',
                     '\n----------------------------------------------------------------');
     } else if (process.argv[2] === undefined || process.argv[2].length != 4) {
         console.log('please enter a four digit year');
@@ -651,9 +663,10 @@
         console.log('Choices Limited to: NET, TOTAL, REVERSE, FORWARD');
     } else {
         createReadings(parseInt(process.argv[2]), parseInt(process.argv[3]), parseInt(process.argv[4]),
-            parseInt(process.argv[5]), parseInt(process.argv[6]), process.argv[7],
-            parseInt(process.argv[8]), parseInt(process.argv[9]), parseInt(process.argv[10]), 
-            parseInt(process.argv[11]), process.argv[12], process.argv[13], JSON.parse(process.argv[14]), 
-            JSON.parse(process.argv[15]), JSON.parse(process.argv[16]), JSON.parse(process.argv[17]), JSON.parse(process.argv[18]));
+                       parseInt(process.argv[5]), parseInt(process.argv[6]), process.argv[7],
+                       parseInt(process.argv[8]), parseInt(process.argv[9]), parseInt(process.argv[10]), 
+                       parseInt(process.argv[11]), process.argv[12], process.argv[13], JSON.parse(process.argv[14]), 
+                       JSON.parse(process.argv[15]), JSON.parse(process.argv[16]), JSON.parse(process.argv[17]), 
+                       JSON.parse(process.argv[18]),JSON.parse(process.argv[19]));
     }
 }());
