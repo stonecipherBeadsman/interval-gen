@@ -579,17 +579,16 @@
                 '\n------------------------------------------',
                 '\n12| meterName:',meterName,
                 '\n------------------------------------------',
-                '\n13| usePrefix:',usePrefix,
+                '\n13| randomMissingReadings:',randomMissingReadings,
                 '\n------------------------------------------',
-                '\n14| randomMissingReadings:',randomMissingReadings,
+                '\n14| randomDigitsInName:',randomDigitsInName,
                 '\n------------------------------------------',
-                '\n15| randomDigitsInName:',randomDigitsInName,
+                '\n15| useUtcOffset:',useUtcOffset,
                 '\n------------------------------------------',
-                '\n16| useUtcOffset:',useUtcOffset,
+                '\n16| genRandomLifeLikeData:',genRandomLifeLikeData,
                 '\n------------------------------------------',
-                '\n17| genRandomLifeLikeData:',genRandomLifeLikeData,
-                '\n------------------------------------------,',
-                '\n18| createGAIFileForMeters:',createGAIFileForMeters);
+                '\n17| createGAIFileForMeters:',createGAIFileForMeters,
+                '\n------------------------------------------');
         var data;
         if (readingsPerDay != 24 && readingsPerDay != 48 && readingsPerDay != 96 && readingsPerDay != 288 && readingsPerDay != 1440) {
             console.log('Please Choose 24, 48, 96, or 288 readings per day');
@@ -643,21 +642,21 @@
                     '\n----------------------------------------------------------------',
                     '\n 12| Meter name ["_" if using input file]',
                     '\n----------------------------------------------------------------',
-                    '\n 13| Use prefix? [true|false]',
+                    '\n 13| Random Missing Readings? [true|false] BROKEN',
                     '\n----------------------------------------------------------------',
-                    '\n 14| Random Missing Readings? [true|false] BROKEN',
+                    '\n 14| Random Digits in MeterName? [true|false]',
                     '\n----------------------------------------------------------------',
-                    '\n 15| Random Digits in MeterName? [true|false]',
+                    '\n 15| Use UTC Offset [true|false]',
                     '\n----------------------------------------------------------------',
-                    '\n 16| Use UTC Offset [true|false]',
+                    '\n 16| Generate Life Like Data [true|false]',
                     '\n----------------------------------------------------------------',
-                    '\n 17| Generate Life Like Data [true|false]',
-                    '\n----------------------------------------------------------------',
-                    '\n 18| Create Asset Import File for Meters? [true|false]',
+                    '\n 17| Create Asset Import File for Meters? [true|false]',
                     '\n----------------------------------------------------------------');
     } else if (process.argv[2] === undefined || process.argv[2].length != 4) {
         console.log('please enter a four digit year');
-    } else if (process.argv[10] === undefined) {
+    } else if(parseInt(process.argv[6])===0){
+        console.log('please choose -1, or any whole number greater than 0');
+    }else if (process.argv[10] === undefined) {
         console.log('please choose a parser by entering: \n1 for MEPMD01\n ---OR---\n2 for Generic Parser V1');
     } else if ('NET,TOTAL,REVERSE,FORWARD'.indexOf(process.argv[12].toUpperCase()) < 0) {
         console.log('Choices Limited to: NET, TOTAL, REVERSE, FORWARD');
@@ -665,7 +664,7 @@
         createReadings(parseInt(process.argv[2]), parseInt(process.argv[3]), parseInt(process.argv[4]),
                        parseInt(process.argv[5]), parseInt(process.argv[6]), process.argv[7],
                        parseInt(process.argv[8]), parseInt(process.argv[9]), parseInt(process.argv[10]), 
-                       parseInt(process.argv[11]), process.argv[12], process.argv[13], JSON.parse(process.argv[14]), 
+                       parseInt(process.argv[11]), process.argv[12], process.argv[13], (parseInt(process.argv[6]) > 1 ? true : false), 
                        JSON.parse(process.argv[15]), JSON.parse(process.argv[16]), JSON.parse(process.argv[17]), 
                        JSON.parse(process.argv[18]),JSON.parse(process.argv[19]));
     }
