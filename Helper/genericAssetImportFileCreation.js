@@ -3,7 +3,10 @@
     var fs = require('fs');
     var path = require('path');
     var data = '';
-    module.exports = createFile;
+    module.exports = {
+        createFile,
+        createAssetsFromList
+    };
 
     function createAssetsFromList(listToCreate) {
         //for loop creating assets storing them in list then returning
@@ -115,6 +118,7 @@
     }
 
     function createFile(list, fileName) {
+        console.log(list);
         var data = '';
             data += createAssetsFromList(list);
         fs.writeFileSync(__dirname + '/../Output/GenericAssetImportParser_' + fileName + ".csv", data);

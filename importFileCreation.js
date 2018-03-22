@@ -7,14 +7,35 @@
     var monthEngine = require("./Helper/monthEngine.js");
     var Counter = require("./Helper/Counter.js");
     var createGenericAssetImportFiles = require("./Helper/genericAssetImportFileCreation.js");
+    var getBooleanValue = require("./Helper/getBooleanValue.js")
+    module.exports = {
+        setUtsOffset,//
+        syncDdAndDayOfTheMonthCount,//
+        isLastDayOfTheMonth,//
+        randomIntFromInterval,//
+        padNumber,//
+        inputToArray,//
+        getProtocolCode,//
+        translateDateToParserFormat,//
+        makeFile,//
+        dateTransition,//
+        monthTransition,//
+        setUOM,//
+        addRegisterReadAndMeterNumbersMepmd01,
+        createMeterNumbers,
+        getScaledIntervalBound,//
+        createLifeLikePseudoRandomInterval,//
+        addIntervalsToCumulative,//
+        createMepmd01Data
+    }
 
-    function getBooleanValue(value) {
+ /*   function getBooleanValue(value) {
         if(value === undefined){
             return Math.random() >= 0.5;
         } else {
             return Math.random() >= value;
         }
-    }
+    }*/
 
     function setUtsOffset(useOffest){
     	return useOffest === true ? 5 : 0;
@@ -605,7 +626,7 @@
                     makeFile(data.data, fileName);
 
                     if(createGAIFileForMeters){
-                        createGenericAssetImportFiles(data.meterNumberList, fileName);
+                        createGenericAssetImportFiles.createFile(data.meterNumberList, fileName);
                     }
                 }
             }
