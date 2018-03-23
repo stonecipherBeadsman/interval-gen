@@ -8,8 +8,10 @@
     var Counter = require("./Helper/Counter.js");
     var createGenericAssetImportFiles = require("./Helper/genericAssetImportFileCreation.js");
     var getBooleanValue = require("./Helper/getBooleanValue.js")
+    var setUtcOffset = require("./Helper/setUtcOffset.js");
+
     module.exports = {
-        setUtsOffset,//
+        //setUtcOffset,//
         syncDdAndDayOfTheMonthCount,//
         isLastDayOfTheMonth,//
         randomIntFromInterval,//
@@ -35,11 +37,11 @@
         } else {
             return Math.random() >= value;
         }
-    }*/
-
-    function setUtsOffset(useOffest){
-    	return useOffest === true ? 5 : 0;
     }
+
+    function setUtcOffset(useOffest){
+    	return useOffest === true ? 5 : 0;
+    }*/
 
     function syncDdAndDayOfTheMonthCount(dd, daysInCurrentMonth) {
         if (dd > 1) {
@@ -364,7 +366,7 @@
         var mm = startMonth;
         var dd = startDay;
         //for UTC offset use 5 if parser configuration set to useLocalTime=false, 0 if true
-        var hh = setUtsOffset(useUtcOffset);
+        var hh = setUtcOffset(useUtcOffset);
         var monthList = [];
         var dates = [];
         var meterNumberList = createMeterNumbers(howManyMeters, meterName, usePrefix, randomDigitsInName);
@@ -557,7 +559,7 @@
             yyyy = startYear;
             mm = startMonth;
             dd = startDay;
-            hh = setUtsOffset(useUtcOffset);
+            hh = setUtcOffset(useUtcOffset);
         } while (lifeLikeMetersCounter > 0);
 
         completeRawMeterReadingsList = addRegisterReadAndMeterNumbersMepmd01(meterNumberList, monthList, dailyRegisterRead, startingUsage, meterText, cumulativeReadingValuesCollection, genRandomLifeLikeData); //, yyyy, mm);
