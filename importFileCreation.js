@@ -10,11 +10,12 @@
     var getBooleanValue = require("./Helper/getBooleanValue.js")
     var setUtcOffset = require("./Helper/setUtcOffset.js");
     var syncDdAndDayOfTheMonthCount = require('./Helper/syncDdAndDayOfTheMonthCount.js');
+    var isLastDayOfTheMonth = require("./Helper/isLastDayOfTheMonth.js")
 
     module.exports = {
         //setUtcOffset,//
         //syncDdAndDayOfTheMonthCount,//
-        isLastDayOfTheMonth,//
+        //isLastDayOfTheMonth,//
         randomIntFromInterval,//
         padNumber,//
         inputToArray,//
@@ -50,14 +51,14 @@
         } else {
             return daysInCurrentMonth;
         }
-    }*/
+    }
 
     function isLastDayOfTheMonth(dayOfTheMonthCount, daysInCurrentMonth, daysLeftInCurrentMonth) {
         if (dayOfTheMonthCount === daysInCurrentMonth - 1 || daysLeftInCurrentMonth === 0) {
             return true;
         }
         return false;
-    }
+    }*/
 
 
     function randomIntFromInterval(min,max){
