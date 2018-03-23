@@ -9,10 +9,11 @@
     var createGenericAssetImportFiles = require("./Helper/genericAssetImportFileCreation.js");
     var getBooleanValue = require("./Helper/getBooleanValue.js")
     var setUtcOffset = require("./Helper/setUtcOffset.js");
+    var syncDdAndDayOfTheMonthCount = require('./Helper/syncDdAndDayOfTheMonthCount.js');
 
     module.exports = {
         //setUtcOffset,//
-        syncDdAndDayOfTheMonthCount,//
+        //syncDdAndDayOfTheMonthCount,//
         isLastDayOfTheMonth,//
         randomIntFromInterval,//
         padNumber,//
@@ -41,7 +42,7 @@
 
     function setUtcOffset(useOffest){
     	return useOffest === true ? 5 : 0;
-    }*/
+    }
 
     function syncDdAndDayOfTheMonthCount(dd, daysInCurrentMonth) {
         if (dd > 1) {
@@ -49,7 +50,7 @@
         } else {
             return daysInCurrentMonth;
         }
-    }
+    }*/
 
     function isLastDayOfTheMonth(dayOfTheMonthCount, daysInCurrentMonth, daysLeftInCurrentMonth) {
         if (dayOfTheMonthCount === daysInCurrentMonth - 1 || daysLeftInCurrentMonth === 0) {
