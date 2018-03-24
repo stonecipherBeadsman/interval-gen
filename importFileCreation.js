@@ -11,12 +11,13 @@
     var setUtcOffset = require("./Helper/setUtcOffset.js");
     var syncDdAndDayOfTheMonthCount = require('./Helper/syncDdAndDayOfTheMonthCount.js');
     var isLastDayOfTheMonth = require("./Helper/isLastDayOfTheMonth.js")
+    var randomIntFromInterval = require("./Helper/randomIntFromInterval.js")
 
     module.exports = {
         //setUtcOffset,//
         //syncDdAndDayOfTheMonthCount,//
         //isLastDayOfTheMonth,//
-        randomIntFromInterval,//
+        //randomIntFromInterval,//
         padNumber,//
         inputToArray,//
         getProtocolCode,//
@@ -58,13 +59,13 @@
             return true;
         }
         return false;
-    }*/
+    }
 
 
     function randomIntFromInterval(min,max){
         var number = (Math.floor((Math.random()*(max-min)+min) * 10000)) / 10000;
         return number;
-    }
+    }*/
 
     function padNumber(number) {
         if (number < 10) {

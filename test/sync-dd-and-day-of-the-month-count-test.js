@@ -5,7 +5,6 @@ var assert = require('chai').assert;
 var tests = [];
 var test = {}
 var daysInCurrentMonth;
-var results = [];
 for (var year = 2016; year < 2017; year++) {
 	for (var month = 1; month <= 3; month++) {
 		daysInCurrentMonth = monthEngine(year, month)
