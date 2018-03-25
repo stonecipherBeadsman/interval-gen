@@ -1,5 +1,3 @@
-//look for a way to maybe stream the output to the text file rather than store it as a big string
-
 ;(function() {
     'use strict';
     var fs = require('fs');
@@ -7,31 +5,36 @@
     var monthEngine = require("./Helper/monthEngine.js");
     var Counter = require("./Helper/Counter.js");
     var createGenericAssetImportFiles = require("./Helper/genericAssetImportFileCreation.js");
-    var getBooleanValue = require("./Helper/getBooleanValue.js")
+    var getBooleanValue = require("./Helper/getBooleanValue.js");
     var setUtcOffset = require("./Helper/setUtcOffset.js");
     var syncDdAndDayOfTheMonthCount = require('./Helper/syncDdAndDayOfTheMonthCount.js');
     var isLastDayOfTheMonth = require("./Helper/isLastDayOfTheMonth.js")
-    var randomIntFromInterval = require("./Helper/randomIntFromInterval.js")
+    var randomIntFromInterval = require("./Helper/randomIntFromInterval.js");
+    var padNumber = require("./Helper/padNumber.js");
+    var inputToArrayAtNewline = require("./Helper/inputToArrayAtNewline.js");
+    var getProtocolCode = require("./Helper/getProtocolCode.js");
+    var translateDateToParserFormat = require("./Helper/translateDateToParserFormat.js");
+
 
     module.exports = {
         //setUtcOffset,//
         //syncDdAndDayOfTheMonthCount,//
         //isLastDayOfTheMonth,//
         //randomIntFromInterval,//
-        padNumber,//
-        inputToArray,//
-        getProtocolCode,//
-        translateDateToParserFormat,//
+        //padNumber,//
+        //inputToArray,//
+        //getProtocolCode,//
+        //translateDateToParserFormat,//
         makeFile,//
         dateTransition,//
         monthTransition,//
         setUOM,//
-        addRegisterReadAndMeterNumbersMepmd01,
-        createMeterNumbers,
+        addRegisterReadAndMeterNumbersMepmd01,//
+        createMeterNumbers,//
         getScaledIntervalBound,//
         createLifeLikePseudoRandomInterval,//
         addIntervalsToCumulative,//
-        createMepmd01Data
+        createMepmd01Data//
     }
 
  /*   function getBooleanValue(value) {
@@ -65,7 +68,7 @@
     function randomIntFromInterval(min,max){
         var number = (Math.floor((Math.random()*(max-min)+min) * 10000)) / 10000;
         return number;
-    }*/
+    }
 
     function padNumber(number) {
         if (number < 10) {
@@ -104,7 +107,7 @@
             }
         }
         return [yyyy + dateValues[0] + dateValues[1] + dateValues[2] + '00'];
-    }
+    }*/
 
     function makeFile(data, fileName) {
         var dir = __dirname + "/Output/";
