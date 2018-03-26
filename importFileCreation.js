@@ -14,19 +14,11 @@
     var inputToArrayAtNewline = require("./Helper/inputToArrayAtNewline.js");
     var getProtocolCode = require("./Helper/getProtocolCode.js");
     var translateDateToParserFormat = require("./Helper/translateDateToParserFormat.js");
+    var dateTransition = require("./Helper/dateTransition.js");
 
 
     module.exports = {
-        //setUtcOffset,//
-        //syncDdAndDayOfTheMonthCount,//
-        //isLastDayOfTheMonth,//
-        //randomIntFromInterval,//
-        //padNumber,//
-        //inputToArray,//
-        //getProtocolCode,//
-        //translateDateToParserFormat,//
-        makeFile,//
-        dateTransition,//
+        makeFile,
         monthTransition,//
         setUOM,//
         addRegisterReadAndMeterNumbersMepmd01,//
@@ -36,78 +28,6 @@
         addIntervalsToCumulative,//
         createMepmd01Data//
     }
-
- /*   function getBooleanValue(value) {
-        if(value === undefined){
-            return Math.random() >= 0.5;
-        } else {
-            return Math.random() >= value;
-        }
-    }
-
-    function setUtcOffset(useOffest){
-    	return useOffest === true ? 5 : 0;
-    }
-
-    function syncDdAndDayOfTheMonthCount(dd, daysInCurrentMonth) {
-        if (dd > 1) {
-            return daysInCurrentMonth - dd;
-        } else {
-            return daysInCurrentMonth;
-        }
-    }
-
-    function isLastDayOfTheMonth(dayOfTheMonthCount, daysInCurrentMonth, daysLeftInCurrentMonth) {
-        if (dayOfTheMonthCount === daysInCurrentMonth - 1 || daysLeftInCurrentMonth === 0) {
-            return true;
-        }
-        return false;
-    }
-
-
-    function randomIntFromInterval(min,max){
-        var number = (Math.floor((Math.random()*(max-min)+min) * 10000)) / 10000;
-        return number;
-    }
-
-    function padNumber(number) {
-        if (number < 10) {
-            return '00' + number.toString();
-        } else if (number < 100) {
-            return '0' + number.toString();
-        }
-        return number.toString();
-    }
-
-    function inputToArray(data) {
-        data = data.split('\n');       
-        for (var i = data.length - 1; i >= 0; i--) {
-        	data[i] = data[i].replace(/\s/g, "");
-        }
-
-        return data;
-    }
-
-    function getProtocolCode(randomMissingReadings, protocolCode) {
-        if (randomMissingReadings && getBooleanValue()) {
-            protocolCode = 'N0'; //E0
-        } else if (protocolCode !== 'A') {
-            protocolCode = 'A';
-        }
-        return protocolCode;
-    }
-
-    function translateDateToParserFormat(yyyy, mm, dd, hh) {
-        var dateValues = [mm, dd, hh];
-        for (var x = 0; x < dateValues.length; x++) {
-            if (dateValues[x] < 10) {
-                dateValues[x] = '0' + dateValues[x].toString();
-            } else {
-                dateValues[x] = dateValues[x].toString();
-            }
-        }
-        return [yyyy + dateValues[0] + dateValues[1] + dateValues[2] + '00'];
-    }*/
 
     function makeFile(data, fileName) {
         var dir = __dirname + "/Output/";
@@ -128,38 +48,6 @@
             }
             console.log('The file was saved ' + fileName + ".txt");
         });
-    }
-
-    function dateTransition(intervalRowSegment, readingsPerDay, hh) {
-        var dateTransitionValue = 7600;
-        if (hh === 5) {
-            if (intervalRowSegment === 18 && readingsPerDay === 24) {
-                //this is the value that makes the day increment from d-1 to d after 2300
-                return dateTransitionValue;
-            } else if (readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) {
-                return dateTransitionValue;
-            } else if (readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
-                return dateTransitionValue;
-            } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
-                return dateTransitionValue;
-            } else {
-                return 0;
-            }
-        } else if (hh === 0) {
-            //the incrementation is done by arithmatic on the date string as if it where simply an integer
-            if (intervalRowSegment === 23 && readingsPerDay === 24) {
-                //this is the value that makes the day increment from d-1 to d after 2300
-                return dateTransitionValue;
-            } else if (readingsPerDay === 48 && intervalRowSegment === ((23 * 2) + 1)) {
-                return dateTransitionValue;
-            } else if (readingsPerDay === 96 && intervalRowSegment === ((23 * 4) + 3)) {
-                return dateTransitionValue;
-            } else if (readingsPerDay === 288 && intervalRowSegment === (23 * 4 * 3) + 11) {
-                return dateTransitionValue;
-            } else {
-                return 0;
-            }
-        }
     }
 
     function monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
