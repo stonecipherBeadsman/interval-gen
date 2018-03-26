@@ -57,17 +57,15 @@ function buildTestCasesAndExpectedResults(intervalRowSegmentValues, readingsPerd
 	var tests = [];
 	var test = {};
 	for (var k = 0; k < hhValues.length; k++){
-		//for (var l = 0; l < readingsPerdayValues.length; l++) {
-			intervalRowSegmentValues.forEach(function(intervalRowSegmentValueList){
-				for (var m = 0; m < intervalRowSegmentValueList.length; m++) {
-					test.arguments = [intervalRowSegmentValueList[m],intervalRowSegmentValueList.length,hhValues[k]];
-					test.expected = dateTransitionBaseline.apply(null, test.arguments);
-					test.testLable = test.arguments + ' Should yeild ' + test.expected;
-					tests.push(test);
-					test = {};
-				}
-			});
-		//}
+		intervalRowSegmentValues.forEach(function(intervalRowSegmentValueList){
+			for (var m = 0; m < intervalRowSegmentValueList.length; m++) {
+				test.arguments = [intervalRowSegmentValueList[m],intervalRowSegmentValueList.length,hhValues[k]];
+				test.expected = dateTransitionBaseline.apply(null, test.arguments);
+				test.testLable = test.arguments + ' Should yeild ' + test.expected;
+				tests.push(test);
+				test = {};
+			}
+		});
 	}
 	return tests;	
 }

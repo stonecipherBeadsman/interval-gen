@@ -12,7 +12,7 @@ for (var year = 2016; year < 2017; year++) {
 		daysInCurrentMonth = monthEngine(year, month)
 		for (var day = 1; day <= daysInCurrentMonth; day++) {
 			test.arguments = [day, daysInCurrentMonth, (daysInCurrentMonth - day)];
-			test.expected = /*day === (daysInCurrentMonth -1) || */(daysInCurrentMonth - day) === 0 ? true : false;
+			test.expected = (daysInCurrentMonth - day) === 0 ? true : false;
 			test.testLable = year + ' ' + month + ' ' + daysInCurrentMonth + ' - ' + day + ' = ' + test.expected;
 			tests.push(test);
 			test = {};
