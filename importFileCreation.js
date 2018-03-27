@@ -15,11 +15,12 @@
     var getProtocolCode = require("./Helper/getProtocolCode.js");
     var translateDateToParserFormat = require("./Helper/translateDateToParserFormat.js");
     var dateTransition = require("./Helper/dateTransition.js");
+    var monthTransition = require("./Helper/monthTransition.js");
 
 
     module.exports = {
         makeFile,
-        monthTransition,//
+       // monthTransition,//
         setUOM,//
         addRegisterReadAndMeterNumbersMepmd01,//
         createMeterNumbers,//
@@ -50,7 +51,8 @@
         });
     }
 
-    function monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
+/*
+)    function monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
         var date = [];
         if (hh === 5) {
             if (intervalRowSegment === 18 && readingsPerDay === 24) {
@@ -76,6 +78,7 @@
         return date;
 
     }
+    */
 
 
     function setUOM(input) {
