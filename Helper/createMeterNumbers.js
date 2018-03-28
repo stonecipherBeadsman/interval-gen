@@ -2,7 +2,9 @@
 	'use strict';
 	module.exports = createMeterNumbers;
     var path = require('path');
-    var padNumber = require(path.resolve(__dirname, "padNumber.js"));
+    var fs = require('fs');
+    var padNumber = require(path.resolve(__dirname, 'padNumber.js'));
+    var inputToArrayAtNewline = require(path.resolve(__dirname, 'inputToArrayAtNewline.js'));
 
 	function createMeterNumbers(quantity, meterName, usePrefix, randomDigitsInName) {
         var number = 0;
@@ -39,12 +41,12 @@
         	}
         } else {
         	//get list of meters from file
-        	var meterFile = '/Input/meterList.txt';
-        	var filePath = path.join(__dirname, meterFile);
+        	var meterFile = '../Input/meterList.txt';
+        	var filePath = meterFile;
         	var meters = fs.readFileSync(filePath, {
             	encoding: 'utf-8'
        		 });
-        	return inputToArray(meters);
+        	return inputToArrayAtNewline(meters);
         }
     }
 }());
