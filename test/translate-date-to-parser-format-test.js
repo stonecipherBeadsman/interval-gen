@@ -1,4 +1,5 @@
-var translateDateToParserFormat = require("../Helper/translateDateToParserFormat.js");
+var path = require('path');
+var translateDateToParserFormat = require(path.resolve(__dirname, "../Helper/translateDateToParserFormat.js"));
 var assert = require('chai').assert;
 
 

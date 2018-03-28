@@ -1,4 +1,5 @@
-var padNumber = require("../Helper/padNumber.js");
+var path = require('path');
+var padNumber = require(path.resolve(__dirname, '../Helper/padNumber.js'));
 var assert = require('chai').assert;
 
 describe('padNumber Test', function(){

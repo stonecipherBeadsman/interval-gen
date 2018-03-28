@@ -1,4 +1,5 @@
-var randomIntFromInterval = require("../Helper/randomIntFromInterval.js");
+var path = require('path');
+var randomIntFromInterval = require(path.resolve(__dirname, '../Helper/randomIntFromInterval.js'));
 var assert = require('chai').assert;
 
 describe('randomIntFromInterval Test', function(){

@@ -118,11 +118,8 @@
     }
 
     function createFile(list, fileName) {
-        console.log(list);
         var data = '';
             data += createAssetsFromList(list);
         fs.writeFileSync(__dirname + '/../Output/GenericAssetImportParser_' + fileName + ".csv", data);
     }
-
-    //createFile(['a','b','c'], 'abc');
 }());

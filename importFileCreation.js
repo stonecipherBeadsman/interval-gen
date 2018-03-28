@@ -2,36 +2,37 @@
     'use strict';
     var fs = require('fs');
     var path = require('path');
-    var monthEngine = require("./Helper/monthEngine.js");
-    var Counter = require("./Helper/Counter.js");
-    var createGenericAssetImportFiles = require("./Helper/genericAssetImportFileCreation.js");
-    var getBooleanValue = require("./Helper/getBooleanValue.js");
-    var setUtcOffset = require("./Helper/setUtcOffset.js");
-    var syncDdAndDayOfTheMonthCount = require('./Helper/syncDdAndDayOfTheMonthCount.js');
-    var isLastDayOfTheMonth = require("./Helper/isLastDayOfTheMonth.js")
-    var randomIntFromInterval = require("./Helper/randomIntFromInterval.js");
-    var padNumber = require("./Helper/padNumber.js");
-    var inputToArrayAtNewline = require("./Helper/inputToArrayAtNewline.js");
-    var getProtocolCode = require("./Helper/getProtocolCode.js");
-    var translateDateToParserFormat = require("./Helper/translateDateToParserFormat.js");
-    var dateTransition = require("./Helper/dateTransition.js");
-    var monthTransition = require("./Helper/monthTransition.js");
 
+    var monthEngine = require( path.resolve(__dirname ,'./Helper/monthEngine.js'));
+    var Counter = require( path.resolve(__dirname ,'./Helper/Counter.js'));
+    var createGenericAssetImportFiles = require( path.resolve(__dirname ,'./Helper/genericAssetImportFileCreation.js'));
+    var getBooleanValue = require( path.resolve(__dirname ,'./Helper/getBooleanValue.js'));
+    var setUtcOffset = require( path.resolve(__dirname ,'./Helper/setUtcOffset.js'));
+    var syncDdAndDayOfTheMonthCount = require( path.resolve(__dirname ,'./Helper/syncDdAndDayOfTheMonthCount.js'));
+    var isLastDayOfTheMonth = require( path.resolve(__dirname ,'./Helper/isLastDayOfTheMonth.js'));
+    var randomIntFromInterval = require( path.resolve(__dirname ,'./Helper/randomIntFromInterval.js'));
+    var padNumber = require( path.resolve(__dirname ,'./Helper/padNumber.js'));
+    var inputToArrayAtNewline = require( path.resolve(__dirname ,'./Helper/inputToArrayAtNewline.js'));
+    var getProtocolCode = require( path.resolve(__dirname ,'./Helper/getProtocolCode.js'));
+    var translateDateToParserFormat = require( path.resolve(__dirname ,'./Helper/translateDateToParserFormat.js'));
+    var dateTransition = require( path.resolve(__dirname ,'./Helper/dateTransition.js'));
+    var monthTransition = require( path.resolve(__dirname ,'./Helper/monthTransition.js'));
+    var setUOM = require( path.resolve(__dirname ,'./Helper/setUOM.js'));
+    var addRegisterReadAndMeterNumbersMepmd01 = require( path.resolve(__dirname ,'./Helper/addRegisterReadAndMeterNumbersMepmd01.js'));
+    var createMeterNumbers = require( path.resolve(__dirname ,'./Helper/createMeterNumbers.js'));
 
     module.exports = {
         makeFile,
-       // monthTransition,//
-        setUOM,//
-        addRegisterReadAndMeterNumbersMepmd01,//
+        //addRegisterReadAndMeterNumbersMepmd01,//
         createMeterNumbers,//
         getScaledIntervalBound,//
         createLifeLikePseudoRandomInterval,//
         addIntervalsToCumulative,//
-        createMepmd01Data//
+        createMepmd01Data
     }
 
     function makeFile(data, fileName) {
-        var dir = __dirname + "/Output/";
+        var dir = __dirname + '/Output/';
         if (fileName === undefined) {
             fileName = 'Meter_Readings';
         } else {
@@ -43,160 +44,12 @@
             fs.mkdirSync(dir);
         }
 
-        fs.writeFile(dir + fileName + ".txt", writer, function(err) {
+        fs.writeFile(dir + fileName + '.txt', writer, function(err) {
             if (err) {
                 return console.log(err);
             }
-            console.log('The file was saved ' + fileName + ".txt");
+            console.log('The file was saved ' + fileName + '.txt');
         });
-    }
-
-/*
-)    function monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
-        var date = [];
-        if (hh === 5) {
-            if (intervalRowSegment === 18 && readingsPerDay === 24) {
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-            } else if (readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) { //inprocess!!!!
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-            } else if (readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-            } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-            }
-        } else if (hh === 0) {            
-            if (intervalRowSegment === 23 && readingsPerDay === 24) {
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);         
-            } else if (readingsPerDay === 48 && intervalRowSegment === ((23 * 2) + 1)) { //inprocess!!!!
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-            } else if (readingsPerDay === 96 && intervalRowSegment === ((23 * 4) + 3)) {
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-            } else if (readingsPerDay === 288 && intervalRowSegment === (23 * 4 * 3) + 11) {
-                    date = translateDateToParserFormat(lastDayYyyy, lastDayMm, lastDayDd, 0);
-            }
-        }
-        return date;
-
-    }
-    */
-
-
-    function setUOM(input) {
-        var flowDirection = {
-            intUom: '',
-            regUom: ''
-        };
-
-        input = input.toUpperCase();
-        switch (input[0]) {
-            case 'R':
-                flowDirection.intUom = 'GKWH';
-                flowDirection.regUom = 'GKWHREG';
-                break;
-            case 'N':
-                flowDirection.intUom = 'NKWH';
-                flowDirection.regUom = 'NKWHREG';
-                break;
-            case 'T':
-                flowDirection.intUom = 'SKWH';
-                flowDirection.regUom = 'SKWHREG';
-                break;
-            default:
-                flowDirection.intUom = 'KWH';
-                flowDirection.regUom = 'KWHREG';
-        }
-        return flowDirection;
-    }
-
-    function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyRegisterRead, 
-    											   startingUsage, meterText, cumulativeReadingValuesCollection, 
-                                                   useLifeLikeData) {
-        var a = [];
-        var b = [];
-        var registerReadCounter = 0;
-        var numberOfCumulativesPerMeter = monthList.length/meterNumbers.length;
-        var start = 0;
-        var stop = numberOfCumulativesPerMeter;
-        var buildingCumulative = startingUsage;
-        for (var k = 0; k < meterNumbers.length; k++) {
-            for (var l = start; l < stop; l++) {
-                for (var h = 0; h < monthList[l].length; h++) {
-                    a = monthList[l][h];
-                    if (a.indexOf('REGISTER_READ_PLACEHOLDER') > 0) {
-                        if(useLifeLikeData){
-                            a = a.replace('REGISTER_READ_PLACEHOLDER', buildingCumulative);
-                            buildingCumulative += cumulativeReadingValuesCollection[k][l]; 
-                        }else{
-                            a = a.replace('REGISTER_READ_PLACEHOLDER', (dailyRegisterRead * registerReadCounter) + startingUsage);
-                        }
-                        registerReadCounter++;
-                    }
-                    a = a.replace('METER_NUMBER_PLACEHOLDER', meterNumbers[k]);
-                    b.push(a);
-                }
-                if (l === stop - 1) { //flawed
-                    var lastIntervalRow = a.split(',');
-                    var dateFromLastInterval = lastIntervalRow[lastIntervalRow.length-3];
-                    var lastRegisterReadRow = dateFromLastInterval;
-                    lastRegisterReadRow = meterText[0].split(',');
-                    lastRegisterReadRow[14] = dateFromLastInterval;
-                    lastRegisterReadRow = lastRegisterReadRow.join(',');
-                    if(useLifeLikeData){
-                        b.push(lastRegisterReadRow.replace('METER_NUMBER_PLACEHOLDER', meterNumbers[k]).replace('REGISTER_READ_PLACEHOLDER', buildingCumulative));
-                        buildingCumulative = startingUsage;
-                    }else{
-                        b.push(lastRegisterReadRow.replace('METER_NUMBER_PLACEHOLDER', meterNumbers[k]).replace('REGISTER_READ_PLACEHOLDER', (dailyRegisterRead * registerReadCounter) + startingUsage));
-                    }
-                }
-                a = [];
-            }
-            registerReadCounter = 0;
-        }
-        return b;
-    }
-
-    function createMeterNumbers(quantity, meterName, usePrefix, randomDigitsInName) {
-        var number = 0;
-        var meterNumber = '';
-        var meterNumbers = [];
-        meterName = meterName === '_' ? '' : meterName;
-        if(quantity > -1){
-        	if (usePrefix === true) {
-        	    if (randomDigitsInName) {
-        	        for (var i = 0; i < quantity;) {
-        	            for (var j = 0; j < 9; j++) {
-        	                number = Math.floor((Math.random() * 10));
-        	                meterNumber += number.toString();
-        	            }
-        	            if (meterNumbers.indexOf(meterNumber) < 0) {
-        	                meterNumbers[i] = meterName + meterNumber;
-        	                i++;
-        	            } else {
-        	                console.log('Duplicate ' + meterNumber);
-        	            }
-        	            meterNumber = '';
-        	        }
-        	    } else {
-        	        for (var k = 0; k < quantity;) {
-        	            meterNumber = padNumber(k + 1);
-        	            meterNumbers[k] = meterName + meterNumber;
-        	            k++;
-        	        }
-        	    }	
-        	    return meterNumbers;
-        	} else if (usePrefix === false) {
-        	    meterNumbers.push([meterName]);
-        	    return meterNumbers;
-        	}
-        } else {
-        	//get list of meters from file
-        	var meterFile = '/Input/meterList.txt';
-        	var filePath = path.join(__dirname, meterFile);
-        	var meters = fs.readFileSync(filePath, {
-            	encoding: 'utf-8'
-       		 });
-        	return inputToArray(meters);
-        }
     }
 
     function getScaledIntervalBound(unscaledMax, multiplier, intervalMultiplier){
@@ -254,7 +107,7 @@
                                 dailyUsage, readingsPerDay, flowDirection, 
                                 meterName, usePrefix, randomMissingReadings, 
                                 randomDigitsInName, useUtcOffset, genRandomLifeLikeData) {
-        var meterText = {};
+        var meterText = [];
         var oneMinCounter = 0;
         var fifteenMinCounter = 0;
         var fiveMinCounter = 0;
@@ -533,7 +386,7 @@
     }
 
     if (process.argv[2] === undefined) {
-        console.log('enter \'help\' for cli arguments');
+        //console.log('enter \'help\' for cli arguments');
     } else if (process.argv[2].toLowerCase() === 'help') {
         console.log(  '----------------------------------------------------------------',
                     '\n-------------------------Arguments------------------------------', 
@@ -560,7 +413,7 @@
                     '\n----------------------------------------------------------------',
                     '\n 11| Flow Direction [NET|TOTAL|REVERSE|FORWARD]',
                     '\n----------------------------------------------------------------',
-                    '\n 12| Meter name ["_" if using input file]',
+                    '\n 12| Meter name [\'_\' if using input file]',
                     '\n----------------------------------------------------------------',
                     '\n 13| Random Missing Readings? [true|false] BROKEN',
                     '\n----------------------------------------------------------------',
@@ -573,7 +426,7 @@
                     '\n 17| Create Asset Import File for Meters? [true|false]',
                     '\n----------------------------------------------------------------');
     } else if (process.argv[2] === undefined || process.argv[2].length != 4) {
-        console.log('please enter a four digit year');
+        //console.log('please enter a four digit year');
     } else if(parseInt(process.argv[6])===0){
         console.log('please choose -1, or any whole number greater than 0');
     }else if (process.argv[10] === undefined) {

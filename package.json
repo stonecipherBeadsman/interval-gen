@@ -4,7 +4,15 @@
   "description": "Useage:\r \tnode importFileCreation.js help\r \tnode importFileCreation.js 2016 1 1 690 1 OutputFileName 0 24 24 1 FORWARD MeterName false false false false true true\r \tnode importFileCreation.js 2016 1 1 690 -1 OutputFileName 0 24 24 1 FORWARD _ false false false false true true",
   "main": "importFileCreation.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha"
+    "test": "node ./node_modules/mocha/bin/mocha",
+    "test-watch": "node ./node_modules/mocha/bin/mocha --watch",
+    "test-min": "node ./node_modules/mocha/bin/mocha --reporter min",
+    "test-min-watch": "node ./node_modules/mocha/bin/mocha --reporter min --watch",
+    "test-landing": "node ./node_modules/mocha/bin/mocha --reporter landing",
+    "test-landing-watch": "node ./node_modules/mocha/bin/mocha --reporter landing --watch",
+    "test-doc": "node ./node_modules/mocha/bin/mocha --reporter doc > documentation.html",
+    "test-progress": "node ./node_modules/mocha/bin/mocha --reporter progress",
+    "test-progress-watch": "node ./node_modules/mocha/bin/mocha --reporter progress --watch"
   },
   "repository": {
     "type": "git",

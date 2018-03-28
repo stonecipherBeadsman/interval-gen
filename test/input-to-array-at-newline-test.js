@@ -1,4 +1,5 @@
-var inputToArrayAtNewline = require("../Helper/inputToArrayAtNewline.js");
+var path = require("path");
+var inputToArrayAtNewline = require(path.resolve(__dirname, "../Helper/inputToArrayAtNewline.js"));
 var assert = require('chai').assert;
 
 describe('inputToArrayAtNewline Test', function(){

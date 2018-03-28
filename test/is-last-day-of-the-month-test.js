@@ -1,7 +1,7 @@
-var isLastDayOfTheMonth = require("../Helper/isLastDayOfTheMonth.js");
-var monthEngine = require("../Helper/monthEngine.js");
+var path = require("path");
+var isLastDayOfTheMonth = require(path.resolve(__dirname, "../Helper/isLastDayOfTheMonth.js"));
+var monthEngine = require(path.resolve(__dirname, "../Helper/monthEngine.js"));
 var assert = require('chai').assert;
-var should = require('chai').should();
 
 var tests = [];
 var test = {}

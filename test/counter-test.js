@@ -1,4 +1,5 @@
-var Counter = require("../Helper/Counter.js");
+var path = require("path");
+var Counter = require(path.resolve(__dirname, "../Helper/Counter.js"));
 var should = require('chai').should();
 var counter; 
 var counter288;
@@ -20,7 +21,7 @@ describe('Counter Test', function(){
 		counter96.getValue().should.be.equal(0);
 		counter48.getValue().should.be.equal(0);
 	});
-	it('Increment should add the interval to the existing value and cycle to 0 when the intervals per hour are exhausted', function(){
+	it('Increment should add the interval to the existing value \n\tand cycle to 0 when the intervals per hour are exhausted', function(){
 		counter.increment().should.be.equal(0);
 		counter288.increment().should.be.equal(5);
 		counter96.increment().should.be.equal(15);
@@ -56,12 +57,12 @@ describe('Counter Test', function(){
 		counter.initCountDown(3);
 		counter.getCurrentCountDownPlaceValue().should.be.equal(3);		
 	});
-	it('decrement should subtract 1 from the countdown value and return the new value', function(){
+	it('decrement should subtract 1 from the countdown value and\n\t return the new value', function(){
 		counter.decrement().should.be.equal(2);
 		counter.decrement().should.be.equal(1);
 		counter.decrement().should.be.equal(0);
 	});
-	it('getCurrentCountDownPlaceValue should return the value of the countdown token', function(){
+	it('getCurrentCountDownPlaceValue should return the value of\n\t the countdown token', function(){
 		counter.initCountDown(10);
 		counter.getCurrentCountDownPlaceValue().should.be.equal(10);
 	});

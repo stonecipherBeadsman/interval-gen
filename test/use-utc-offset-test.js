@@ -1,4 +1,5 @@
-var setUtcOffset = require("../Helper/setUtcOffset.js");
+var path = require('path');
+var setUtcOffset = require(path.resolve(__dirname, "../Helper/setUtcOffset.js"));
 var should = require('chai').should();
 
 describe('setUtcOffset Test', function(){

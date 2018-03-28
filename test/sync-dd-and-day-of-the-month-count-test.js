@@ -1,5 +1,6 @@
-var syncDdAndDayOfTheMonthCount = require("../Helper/syncDdAndDayOfTheMonthCount.js");
-var monthEngine = require("../Helper/monthEngine.js");
+var path = require('path');
+var syncDdAndDayOfTheMonthCount = require(path.resolve(__dirname, "../Helper/syncDdAndDayOfTheMonthCount.js"));
+var monthEngine = require(path.resolve(__dirname, "../Helper/monthEngine.js"));
 var assert = require('chai').assert;
 
 var tests = [];

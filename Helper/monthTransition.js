@@ -1,7 +1,8 @@
 ;(function(){
     'use strict';
     module.exports = monthTransition;
-    var translateDateToParserFormat = require("../Helper/translateDateToParserFormat.js");
+    var path = require('path');
+    var translateDateToParserFormat = require(path.resolve(__dirname, "../Helper/translateDateToParserFormat.js"));
 
     function monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
         var date = undefined;

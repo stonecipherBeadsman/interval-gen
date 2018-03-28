@@ -1,6 +1,6 @@
-var dateTransition = require("../Helper/dateTransition.js");
+var path = require("path");
+var dateTransition = require(path.resolve(__dirname, "../Helper/dateTransition.js"));
 var assert = require('chai').assert;
-var should = require('chai').should();
 
 var tests = [];
 

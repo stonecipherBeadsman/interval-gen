@@ -1,6 +1,7 @@
-var monthTransition = require("../Helper/monthTransition.js");
-var monthEngine = require("../Helper/monthEngine.js");
-var translateDateToParserFormat = require("../Helper/translateDateToParserFormat.js");
+var path = require('path');
+var monthTransition = require(path.resolve(__dirname, '../Helper/monthTransition.js'));
+var monthEngine = require(path.resolve(__dirname,'../Helper/monthEngine.js'));
+var translateDateToParserFormat = require(path.resolve(__dirname,'../Helper/translateDateToParserFormat.js'));
 var assert = require('chai').assert;
 
 function monthTransitionBaseline(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh) {
