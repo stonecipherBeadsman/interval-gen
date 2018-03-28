@@ -23,7 +23,6 @@
 
     module.exports = {
         makeFile,
-        createMeterNumbers,//
         getScaledIntervalBound,//
         createLifeLikePseudoRandomInterval,//
         addIntervalsToCumulative,//
