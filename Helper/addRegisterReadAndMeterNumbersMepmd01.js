@@ -4,9 +4,7 @@
     var path = require('path');
     var padNumber = require(path.resolve(__dirname, "padNumber.js"));
 
-    function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyRegisterRead,
-        startingUsage, meterText, cumulativeReadingValuesCollection,
-        useLifeLikeData) {
+    function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyRegisterRead, startingUsage, cumulativeReadingValuesCollection, useLifeLikeData) {
         var a = [];
         var b = [];
         var registerReadCounter = 0;
@@ -34,7 +32,7 @@
                     var lastIntervalRow = a.split(',');
                     var dateFromLastInterval = lastIntervalRow[lastIntervalRow.length - 3];
                     var lastRegisterReadRow = dateFromLastInterval;
-                    lastRegisterReadRow = meterText[0].split(',');
+                    lastRegisterReadRow = monthList[0][0].split(',');
                     lastRegisterReadRow[14] = dateFromLastInterval;
                     lastRegisterReadRow = lastRegisterReadRow.join(',');
                     if (useLifeLikeData) {

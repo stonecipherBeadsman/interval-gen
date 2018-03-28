@@ -1,12 +1,30 @@
 var path = require('path');
-var addRegisterReadAndMeterNumbersMepmd01 = require(path.resolve(__dirname, "../Helper/addRegisterReadAndMeterNumbersMepmd01.js"));
-var padNumber = require(path.resolve(__dirname, "../Helper/padNumber.js"));
+var addRegisterReadAndMeterNumbersMepmd01 = require(path.resolve(__dirname, '../Helper/addRegisterReadAndMeterNumbersMepmd01.js'));
+var padNumber = require(path.resolve(__dirname, '../Helper/padNumber.js'));
+var createMeterNumbers = require(path.resolve(__dirname, '../Helper/createMeterNumbers.js'));
+var monthList = require(path.resolve(__dirname, 'meterText.json'));
+var assert = require('chai').assert;
+
+var addRegisterReadAndMeterNumbersMepmd01Obj = {};
 var tests = [];
 var test = {};
 
-function addRegisterReadAndMeterNumbersMepmd01Basline(meterNumbers, monthList, dailyRegisterRead,
-    startingUsage, meterText, cumulativeReadingValuesCollection,
-    useLifeLikeData) {
+//todo make more test cases
+
+addRegisterReadAndMeterNumbersMepmd01Obj.meterNumbers =  createMeterNumbers(5, 'TestMeter', true, false);
+addRegisterReadAndMeterNumbersMepmd01Obj.monthList = monthList; 
+addRegisterReadAndMeterNumbersMepmd01Obj.dailyRegisterRead = 24;
+addRegisterReadAndMeterNumbersMepmd01Obj.startingUsage = 0;
+addRegisterReadAndMeterNumbersMepmd01Obj.cumulativeReadingValuesCollection = null;
+addRegisterReadAndMeterNumbersMepmd01Obj.useLifeLikeData = false;
+
+test.arguments = [addRegisterReadAndMeterNumbersMepmd01Obj.meterNumbers, addRegisterReadAndMeterNumbersMepmd01Obj.monthList, addRegisterReadAndMeterNumbersMepmd01Obj.dailyRegisterRead, 
+        addRegisterReadAndMeterNumbersMepmd01Obj.startingUsage, addRegisterReadAndMeterNumbersMepmd01Obj.cumulativeReadingValuesCollection, addRegisterReadAndMeterNumbersMepmd01Obj.useLifeLikeData];
+test.expected = addRegisterReadAndMeterNumbersMepmd01.apply(null, test.arguments);
+test.testLable = 'The given parameters produce a comination of the interval readings and the meter numbers and the cumulative readings';
+tests.push(test);
+
+function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyRegisterRead, startingUsage, cumulativeReadingValuesCollection, useLifeLikeData) {
     var a = [];
     var b = [];
     var registerReadCounter = 0;
@@ -34,7 +52,7 @@ function addRegisterReadAndMeterNumbersMepmd01Basline(meterNumbers, monthList, d
                 var lastIntervalRow = a.split(',');
                 var dateFromLastInterval = lastIntervalRow[lastIntervalRow.length - 3];
                 var lastRegisterReadRow = dateFromLastInterval;
-                lastRegisterReadRow = meterText[0].split(',');
+                lastRegisterReadRow = monthList[0][0].split(',');
                 lastRegisterReadRow[14] = dateFromLastInterval;
                 lastRegisterReadRow = lastRegisterReadRow.join(',');
                 if (useLifeLikeData) {
@@ -51,10 +69,15 @@ function addRegisterReadAndMeterNumbersMepmd01Basline(meterNumbers, monthList, d
     return b;
 }
 
+
+
 describe('addRegisterReadAndMeterNumbersMepmd01 Test \n\t', function() {
     tests.forEach(function(test) {
         it('Correctly generates ' + test.testLable, function() {
-
+            var returnedData = addRegisterReadAndMeterNumbersMepmd01.apply(null, test.arguments);
+            for (var i = 0; i < returnedData.length; i++) {
+                assert.equal(returnedData[i], test.expected[i]);
+            }
         });
     });
 });

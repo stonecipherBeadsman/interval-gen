@@ -23,7 +23,6 @@
 
     module.exports = {
         makeFile,
-        //addRegisterReadAndMeterNumbersMepmd01,//
         createMeterNumbers,//
         getScaledIntervalBound,//
         createLifeLikePseudoRandomInterval,//
@@ -311,8 +310,7 @@
             dd = startDay;
             hh = setUtcOffset(useUtcOffset);
         } while (lifeLikeMetersCounter > 0);
-
-        completeRawMeterReadingsList = addRegisterReadAndMeterNumbersMepmd01(meterNumberList, monthList, dailyRegisterRead, startingUsage, meterText, cumulativeReadingValuesCollection, genRandomLifeLikeData); //, yyyy, mm);
+        completeRawMeterReadingsList = addRegisterReadAndMeterNumbersMepmd01(meterNumberList, monthList, dailyRegisterRead, startingUsage, cumulativeReadingValuesCollection, genRandomLifeLikeData); //, yyyy, mm);
         for (var fileLine = 0; fileLine < completeRawMeterReadingsList.length; fileLine++) {
             textOut += (completeRawMeterReadingsList[fileLine] + '\n');
         }
