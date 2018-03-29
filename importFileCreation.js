@@ -22,10 +22,10 @@
     var createMeterNumbers = require( path.resolve(__dirname ,'./Helper/createMeterNumbers.js'));
     var getScaledIntervalBound = require(path.resolve(__dirname, './Helper/getScaledIntervalBound.js'));
     var createLifeLikePseudoRandomInterval = require(path.resolve(__dirname, './Helper/createLifeLikePseudoRandomInterval.js'));
+    var addIntervalsToCumulative = require(path.resolve(__dirname, './Helper/addIntervalsToCumulative.js'));
 
     module.exports = {
         makeFile,
-        //createLifeLikePseudoRandomInterval,//
         addIntervalsToCumulative,//
         createMepmd01Data
     }
@@ -49,18 +49,6 @@
             }
             console.log('The file was saved ' + fileName + '.txt');
         });
-    }
-
-    function addIntervalsToCumulative(intervalValues, intervalsPerDay){
-        if(intervalValues > intervalsPerDay){
-            throw 'ERROR: must be less than or equal ' + intervalsPerDay;
-        } else{
-            var cumulativeReadingValue = 0;
-            for (var i = 0; i < intervalValues.length; i++){
-                cumulativeReadingValue += intervalValues[i];
-            }
-            return cumulativeReadingValue;
-        }
     }
 
     function createMepmd01Data(startYear, startMonth, startDay, durationInDays, howManyMeters, startingUsage, dailyUsage, readingsPerDay, flowDirection, meterName, usePrefix, randomMissingReadings, randomDigitsInName, useUtcOffset, genRandomLifeLikeData) {
