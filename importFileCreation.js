@@ -20,10 +20,10 @@
     var setUOM = require( path.resolve(__dirname ,'./Helper/setUOM.js'));
     var addRegisterReadAndMeterNumbersMepmd01 = require( path.resolve(__dirname ,'./Helper/addRegisterReadAndMeterNumbersMepmd01.js'));
     var createMeterNumbers = require( path.resolve(__dirname ,'./Helper/createMeterNumbers.js'));
+    var getScaledIntervalBound = require(path.resolve(__dirname, './Helper/getScaledIntervalBound.js'));
 
     module.exports = {
         makeFile,
-        getScaledIntervalBound,//
         createLifeLikePseudoRandomInterval,//
         addIntervalsToCumulative,//
         createMepmd01Data
@@ -48,10 +48,6 @@
             }
             console.log('The file was saved ' + fileName + '.txt');
         });
-    }
-
-    function getScaledIntervalBound(unscaledMax, multiplier, intervalMultiplier){
-        return (unscaledMax / intervalMultiplier)  * multiplier;
     }
 
     function createLifeLikePseudoRandomInterval(hourOfTheDay, readingsPerDay){
@@ -100,11 +96,7 @@
         }
     }
 
-    function createMepmd01Data(startYear, startMonth, startDay, 
-                                durationInDays, howManyMeters, startingUsage, 
-                                dailyUsage, readingsPerDay, flowDirection, 
-                                meterName, usePrefix, randomMissingReadings, 
-                                randomDigitsInName, useUtcOffset, genRandomLifeLikeData) {
+    function createMepmd01Data(startYear, startMonth, startDay, durationInDays, howManyMeters, startingUsage, dailyUsage, readingsPerDay, flowDirection, meterName, usePrefix, randomMissingReadings, randomDigitsInName, useUtcOffset, genRandomLifeLikeData) {
         var meterText = [];
         var oneMinCounter = 0;
         var fifteenMinCounter = 0;
@@ -318,10 +310,7 @@
         return ret;
     }
 
-    function createReadings(startYear, month, startDay, durationInDays, howManyMeters, 
-                            fileName, startingUsage, dailyUsage, readingsPerDay, parser, 
-                            flowDirection, meterName, usePrefix, randomMissingReadings, 
-                            randomDigitsInName, useUtcOffset, genRandomLifeLikeData, createGAIFileForMeters) { 
+    function createReadings(startYear, month, startDay, durationInDays, howManyMeters, fileName, startingUsage, dailyUsage, readingsPerDay, parser,flowDirection, meterName, usePrefix, randomMissingReadings, randomDigitsInName, useUtcOffset, genRandomLifeLikeData, createGAIFileForMeters) { 
     console.log('------------------------------------------',
                 '\n--------------Parameters Used-------------',
                 '\n------------------------------------------',
