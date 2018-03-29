@@ -27,7 +27,6 @@ for (var readingsPerDayPosition = 0; readingsPerDayPosition < intervalLengthTime
 	}
     test.arguments = [intervals];
     test.expected = sum(intervals);
-    //console.log(test.expected);
     test.label = ' Should add up to -> ' + test.expected;
     tests.push(test);
     test = {}

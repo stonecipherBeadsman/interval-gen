@@ -10,7 +10,7 @@ var test = {};
 var intervalLengthTimes = getIntervalLengthTime().possibleReadingsPerDay;
 
 for (var intervalLengthTime = 0; intervalLengthTime < intervalLengthTimes.length; intervalLengthTime++) {
-	for (var hour = 0; hour < 24; hour++) {
+	for (var hour = 1; hour <= intervalLengthTimes[intervalLengthTime]; hour++) {
 		test.arguments = [hour, intervalLengthTimes[intervalLengthTime]];
 		test.label = test.arguments + ' Should be >= 0 or <= 3.5';
 		tests.push(test);
@@ -22,7 +22,7 @@ describe('createLifeLikePseudoRandomInterval Test', function(){
 	var returnedData;
 	tests.forEach(function(test){
 		returnedData = createLifeLikePseudoRandomInterval.apply(null, test.arguments);
-		it(test.label,function(){
+		it(test.label + ' = ' + returnedData,function(){
 			expect(returnedData).to.be.within(0,3.5);
 		});
 	});		
