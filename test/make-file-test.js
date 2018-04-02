@@ -1,14 +1,33 @@
 var path = require('path');
+var fs = require('fs');
 var makeFile = require(path.resolve(__dirname, '../Helper/makeFile.js'));
 var assert = require('chai').assert;
-var mock_fs = require('mock-fs');
 
+function getFile(fileName){
+	//get list of meters from file
+	var filePath = process.cwd() + '/Output/' + fileName + '.txt';
+	var fileContents = fs.readFileSync(filePath, {
+		encoding: 'utf-8'
+	});	
+	return fileContents;
+}
 
-mock_fs({
-  'path/to/fake/dir': {
-    'some-file.txt': 'file content here',
-    'empty-dir': {/** empty directory */}
-  },
-  'path/to/some.png': new Buffer([8, 6, 7, 5, 3, 0, 9]),
-  'some/other/path': {/** another empty directory */}
+function deleteFile(fileName){
+	var filePath = process.cwd() + '/Output/' + fileName + '.txt';
+	fs.unlink(filePath, (err) => {
+	  if (err) throw err;
+	  console.log('path/file.txt was deleted');
+	});
+}
+
+makeFile('test','testFile');
+
+describe('makeFile Test', function(){
+	it('should create a file and the contents should be \'test\' ', function(){
+		setTimeout(function() {
+			var returnedData  = getFile('testFile');
+			assert.equal(returnedData, 'test');
+			deleteFile('testFile');
+		}, 100);		
+	});
 });
