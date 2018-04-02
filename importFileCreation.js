@@ -3,37 +3,12 @@
     var fs = require('fs');
     var path = require('path');
 
-   /*var monthEngine = require( path.resolve(__dirname ,'./Helper/monthEngine.js'));
-    var Counter = require( path.resolve(__dirname ,'./Helper/Counter.js'));
-    */
     var createGenericAssetImportFiles = require( path.resolve(__dirname ,'./Helper/genericAssetImportFileCreation.js'));
-    /*
-    var getBooleanValue = require( path.resolve(__dirname ,'./Helper/getBooleanValue.js'));
-    var setUtcOffset = require( path.resolve(__dirname ,'./Helper/setUtcOffset.js'));
-    var syncDdAndDayOfTheMonthCount = require( path.resolve(__dirname ,'./Helper/syncDdAndDayOfTheMonthCount.js'));
-    var isLastDayOfTheMonth = require( path.resolve(__dirname ,'./Helper/isLastDayOfTheMonth.js'));
-    var randomIntFromInterval = require( path.resolve(__dirname ,'./Helper/randomIntFromInterval.js'));
-    var padNumber = require( path.resolve(__dirname ,'./Helper/padNumber.js'));
-    var inputToArrayAtNewline = require( path.resolve(__dirname ,'./Helper/inputToArrayAtNewline.js'));
-    var getProtocolCode = require( path.resolve(__dirname ,'./Helper/getProtocolCode.js'));
-    var translateDateToParserFormat = require( path.resolve(__dirname ,'./Helper/translateDateToParserFormat.js'));
-    var dateTransition = require( path.resolve(__dirname ,'./Helper/dateTransition.js'));
-    var monthTransition = require( path.resolve(__dirname ,'./Helper/monthTransition.js'));
-    var setUOM = require( path.resolve(__dirname ,'./Helper/setUOM.js'));
-    var addRegisterReadAndMeterNumbersMepmd01 = require( path.resolve(__dirname ,'./Helper/addRegisterReadAndMeterNumbersMepmd01.js'));
-    var createMeterNumbers = require( path.resolve(__dirname ,'./Helper/createMeterNumbers.js'));
-    var getScaledIntervalBound = require(path.resolve(__dirname, './Helper/getScaledIntervalBound.js'));
-    var createLifeLikePseudoRandomInterval = require(path.resolve(__dirname, './Helper/createLifeLikePseudoRandomInterval.js'));
-    var addIntervalsToCumulative = require(path.resolve(__dirname, './Helper/addIntervalsToCumulative.js'));
-    */
     var makeFile = require(path.resolve(__dirname, './Helper/makeFile.js'));
     var createMepmd01Data = require(path.resolve(__dirname, './Helper/createMepmd01Data.js'));
 
-    module.exports = {
-        //createMepmd01Data
-    }
+    function createReadings(startYear, month, startDay, durationInDays, howManyMeters, fileName, startingUsage, dailyUsage, readingsPerDay, parser, flowDirection, meterName, usePrefix, randomMissingReadings, randomDigitsInName, useUtcOffset, genRandomLifeLikeData, createGAIFileForMeters) { 
 
-    function createReadings(startYear, month, startDay, durationInDays, howManyMeters, fileName, startingUsage, dailyUsage, readingsPerDay, parser,flowDirection, meterName, usePrefix, randomMissingReadings, randomDigitsInName, useUtcOffset, genRandomLifeLikeData, createGAIFileForMeters) { 
     console.log('------------------------------------------',
                 '\n--------------Parameters Used-------------',
                 '\n------------------------------------------',
@@ -61,15 +36,17 @@
                 '\n------------------------------------------',
                 '\n12| meterName:',meterName,
                 '\n------------------------------------------',
-                '\n13| randomMissingReadings:',randomMissingReadings,
+                '\n13| usePrefix:',usePrefix,
+                '\n------------------------------------------',                
+                '\n14| randomMissingReadings:',randomMissingReadings,
                 '\n------------------------------------------',
-                '\n14| randomDigitsInName:',randomDigitsInName,
+                '\n15| randomDigitsInName:',randomDigitsInName,
                 '\n------------------------------------------',
-                '\n15| useUtcOffset:',useUtcOffset,
+                '\n16| useUtcOffset:',useUtcOffset,
                 '\n------------------------------------------',
-                '\n16| genRandomLifeLikeData:',genRandomLifeLikeData,
+                '\n17| genRandomLifeLikeData:',genRandomLifeLikeData,
                 '\n------------------------------------------',
-                '\n17| createGAIFileForMeters:',createGAIFileForMeters,
+                '\n18| createGAIFileForMeters:',createGAIFileForMeters,
                 '\n------------------------------------------');
         var data;
         if (readingsPerDay != 24 && readingsPerDay != 48 && readingsPerDay != 96 && readingsPerDay != 288 && readingsPerDay != 1440) {
@@ -146,8 +123,8 @@
         createReadings(parseInt(process.argv[2]), parseInt(process.argv[3]), parseInt(process.argv[4]),
                        parseInt(process.argv[5]), parseInt(process.argv[6]), process.argv[7],
                        parseInt(process.argv[8]), parseInt(process.argv[9]), parseInt(process.argv[10]), 
-                       parseInt(process.argv[11]), process.argv[12], process.argv[13], (parseInt(process.argv[6]) > 1 ? true : false), 
-                       JSON.parse(process.argv[15]), JSON.parse(process.argv[16]), JSON.parse(process.argv[17]), 
-                       JSON.parse(process.argv[18]),JSON.parse(process.argv[19]));
+                       parseInt(process.argv[11]), process.argv[12], process.argv[13],
+                       (parseInt(process.argv[6]) > 1 ? true : false), JSON.parse(process.argv[15]), JSON.parse(process.argv[16]),
+                       JSON.parse(process.argv[17]), JSON.parse(process.argv[18]), JSON.parse(process.argv[19]));
     }
 }());

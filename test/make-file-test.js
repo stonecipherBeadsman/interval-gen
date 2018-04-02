@@ -16,7 +16,6 @@ function deleteFile(fileName){
 	var filePath = process.cwd() + '/Output/' + fileName + '.txt';
 	fs.unlink(filePath, (err) => {
 	  if (err) throw err;
-	  console.log('path/file.txt was deleted');
 	});
 }
 

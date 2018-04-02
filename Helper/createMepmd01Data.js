@@ -7,7 +7,6 @@
 
     var monthEngine = require( path.resolve(__dirname ,'../Helper/monthEngine.js'));
     var Counter = require( path.resolve(__dirname ,'../Helper/Counter.js'));
-    //var createGenericAssetImportFiles = require( path.resolve(__dirname ,'../Helper/genericAssetImportFileCreation.js'));
     var getBooleanValue = require( path.resolve(__dirname ,'../Helper/getBooleanValue.js'));
     var setUtcOffset = require( path.resolve(__dirname ,'../Helper/setUtcOffset.js'));
     var syncDdAndDayOfTheMonthCount = require( path.resolve(__dirname ,'../Helper/syncDdAndDayOfTheMonthCount.js'));
@@ -25,8 +24,6 @@
     var getScaledIntervalBound = require(path.resolve(__dirname, '../Helper/getScaledIntervalBound.js'));
     var createLifeLikePseudoRandomInterval = require(path.resolve(__dirname, '../Helper/createLifeLikePseudoRandomInterval.js'));
     var addIntervalsToCumulative = require(path.resolve(__dirname, '../Helper/addIntervalsToCumulative.js'));
-    /*var makeFile = require(path.resolve(__dirname, '../Helper/makeFile.js'));
-    var createMepmd01Data = require(path.resolve(__dirname, '../Helper/createMepmd01Data.js'));*/
 
 	function createMepmd01Data(startYear, startMonth, startDay, durationInDays, howManyMeters, startingUsage, dailyUsage, readingsPerDay, flowDirection, meterName, usePrefix, randomMissingReadings, randomDigitsInName, useUtcOffset, genRandomLifeLikeData) {
         var meterText = [];
