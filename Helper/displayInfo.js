@@ -81,7 +81,6 @@
                         '\n----------------------------------------------------------------',
                         '\n 17| Create Asset Import File for Meters? [true|false]',
                         '\n----------------------------------------------------------------');
-
 		} else {
 			throw Error('Must choose \'parameters\' or \'menu\'');
 		}

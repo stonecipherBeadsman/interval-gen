@@ -6,7 +6,8 @@ var tests = [];
 var test = {};
 var readingsPerDay = [1,3,6,9,7,1000];
 var parserNumber = [1,2];
-var baseCase = [2017, 1, 1, 1, 1, 0, 24, readingsPerDay, parserNumber,'FORWARD', 'TestMeter', false, false, false, false, false]
+var validCase = [2017, 1, 1, 1, 1, 0, 24,             24,            1,'FORWARD', 'TestMeter', false, false, false, false, false];
+var baseCase =  [2017, 1, 1, 1, 1, 0, 24, readingsPerDay, parserNumber,'FORWARD', 'TestMeter', false, false, false, false, false]
 var testCase = [];
 var testCaseObj = {};
 
@@ -20,14 +21,15 @@ function translateParamsToObject(paramsArray){
 	readingsBlueprint.startingUsage = paramsArray[5];
 	readingsBlueprint.dailyUsage = paramsArray[6];
 	readingsBlueprint.readingsPerDay = paramsArray[7];
-	readingsBlueprint.flowDirection = paramsArray[8];
-	readingsBlueprint.meterName = paramsArray[9];
-	readingsBlueprint.usePrefix = paramsArray[10];
-	readingsBlueprint.randomMissingReadings = paramsArray[11];
-	readingsBlueprint.randomDigitsInName = paramsArray[12];
-	readingsBlueprint.useUtcOffset = paramsArray[13];
-	readingsBlueprint.genRandomLifeLikeData = paramsArray[14];
-	readingsBlueprint.createGAIFileForMeters = paramsArray[15];
+	readingsBlueprint.parser = paramsArray[8];
+	readingsBlueprint.flowDirection = paramsArray[9];
+	readingsBlueprint.meterName = paramsArray[10];
+	readingsBlueprint.usePrefix = paramsArray[11];
+	readingsBlueprint.randomMissingReadings = paramsArray[12];
+	readingsBlueprint.randomDigitsInName = paramsArray[13];
+	readingsBlueprint.useUtcOffset = paramsArray[14];
+	readingsBlueprint.genRandomLifeLikeData = paramsArray[15];
+	readingsBlueprint.createGAIFileForMeters = paramsArray[16];
 	return readingsBlueprint;
 }
 
@@ -60,5 +62,11 @@ describe('createReadings Test', function(){
 				createReadings.apply(null, test.arguments)
 			}).to.throw(Error, test.expected);
 		});
+	});
+	it('Should display parameter table', function(){
+		console.log('not to throw')
+		expect(function(){
+			createReadings.apply(null, [translateParamsToObject(validCase)]);
+		}).not.to.throw('Must choose \'parameters\' or \'menu\'');
 	});
 });

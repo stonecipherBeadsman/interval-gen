@@ -14,7 +14,7 @@
             throw new Error('Please Choose 24, 48, 96, or 288 readings per day');
         } else {
             if (readingsBlueprint.parser === 1) {
-                displayInfo(readingsBlueprint);
+                displayInfo(readingsBlueprint, 'parameters');
                 data = createMepmd01Data(readingsBlueprint);
                 makeFile(data.data, readingsBlueprint.fileName);
                 if(readingsBlueprint.createGAIFileForMeters){
@@ -25,4 +25,4 @@
             }
         }
     }
-}())
+}());
