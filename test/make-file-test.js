@@ -19,10 +19,10 @@ function deleteFile(fileName){
 	});
 }
 
-makeFile('test','testFile');
-
 describe('makeFile Test', function(){
-	it('should create a file and the contents should be \'test\' ', function(){
+	it('should create a file and the contents should be \'test\' ', function(){		
+		makeFile('test','testFile');
+		console.log('Creating testFile');
 		setTimeout(function() {
 			var returnedData  = getFile('testFile');
 			assert.equal(returnedData, 'test');

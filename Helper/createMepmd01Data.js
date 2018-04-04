@@ -25,23 +25,23 @@
     var createLifeLikePseudoRandomInterval = require(path.resolve(__dirname, '../Helper/createLifeLikePseudoRandomInterval.js'));
     var addIntervalsToCumulative = require(path.resolve(__dirname, '../Helper/addIntervalsToCumulative.js'));
 
-	function createMepmd01Data(startYear, startMonth, startDay, durationInDays, howManyMeters, startingUsage, dailyUsage, readingsPerDay, flowDirection, meterName, usePrefix, randomMissingReadings, randomDigitsInName, useUtcOffset, genRandomLifeLikeData) {
+	function createMepmd01Data(readingsBlueprint) {
         var meterText = [];
         var oneMinCounter = 0;
         var fifteenMinCounter = 0;
         var fiveMinCounter = 0;
-        var dailyRegisterRead = dailyUsage;
-        var yyyy = startYear;
-        var mm = startMonth;
-        var dd = startDay;
+        var dailyRegisterRead = readingsBlueprint.dailyUsage;
+        var yyyy = readingsBlueprint.startYear;
+        var mm = readingsBlueprint.startMonth;
+        var dd = readingsBlueprint.startDay;
         //for UTC offset use 5 if parser configuration set to useLocalTime=false, 0 if true
-        var hh = setUtcOffset(useUtcOffset);
+        var hh = setUtcOffset(readingsBlueprint.useUtcOffset);
         var monthList = [];
         var dates = [];
-        var meterNumberList = createMeterNumbers(howManyMeters, meterName, usePrefix, randomDigitsInName);
+        var meterNumberList = createMeterNumbers(readingsBlueprint.howManyMeters, readingsBlueprint.meterName, readingsBlueprint.usePrefix, readingsBlueprint.randomDigitsInName);
         var completeRawMeterReadingsList = [];
         var textOut = '';
-        var counter = new Counter(readingsPerDay);
+        var counter = new Counter(readingsBlueprint.readingsPerDay);
         var countDown = new Counter();
         var dayOfTheMonthCount = 0;
         var daysInCurrentMonth = 0;
@@ -57,13 +57,14 @@
         var cumulativeReadingValuesCollection = [];
         var lifeLikeMetersCounter = meterNumberList.length;
         var ret = {};
+        var flowDirection = {};
 
-        flowDirection = setUOM(flowDirection);
+        flowDirection = setUOM(readingsBlueprint.flowDirection);
         intUom = flowDirection.intUom;
         regUom = flowDirection.regUom;
 
         do {
-            for (var x = 0; x < durationInDays; x++) {
+            for (var x = 0; x < readingsBlueprint.durationInDays; x++) {
                 daysInCurrentMonth = monthEngine(yyyy, mm);
                 //Start the count
                 if (x === 0) {
@@ -79,28 +80,28 @@
                 var intervalLengthTimeValue = 0;
                 var comma = '';
 
-                for (var intervalRowSegment = 0; intervalRowSegment < readingsPerDay; intervalRowSegment++) {
+                for (var intervalRowSegment = 0; intervalRowSegment < readingsBlueprint.readingsPerDay; intervalRowSegment++) {
                     //populate the value that states the number of intervals on the reading 
-                    if ((intervalRowSegment % readingsPerDay) === 0) {
-                        if (readingsPerDay === 24) {
+                    if ((intervalRowSegment % readingsBlueprint.readingsPerDay) === 0) {
+                        if (readingsBlueprint.readingsPerDay === 24) {
                             meterText[1] += '00000100,24,';
                             //if the request is for 24 readings then the initial date needs to be +1 hour
                             intervalLengthTimeValue = 100;
-                        } else if (readingsPerDay === 48) {
+                        } else if (readingsBlueprint.readingsPerDay === 48) {
                             counter.turnOver();
                             counter.increment();
                             //if the request is for 48 readings then the initial date needs to be +30 minutes
                             //and the cycle counter needs to be incremented
                             meterText[1] += '00000030,48,';
                             intervalLengthTimeValue = 30;
-                        } else if (readingsPerDay === 96) {
+                        } else if (readingsBlueprint.readingsPerDay === 96) {
                             counter.turnOver();
                             counter.increment();
                             //if the request is for 96 readings then the initial date needs to be +15 minutes
                             //and the cycle counter needs to be incremented
                             meterText[1] += '00000015,96,';
                             intervalLengthTimeValue = 15;
-                        } else if (readingsPerDay === 288) {
+                        } else if (readingsBlueprint.readingsPerDay === 288) {
                             counter.turnOver();
                             counter.increment();
                             //if the request is for 288 readings then the initial date needs to be +5 minutes
@@ -121,66 +122,66 @@
                         }
                         var lastDayDd = 1;
                         if(hh === 5){
-                            if (intervalRowSegment === 18  && readingsPerDay === 24) {
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            if (intervalRowSegment === 18  && readingsBlueprint.readingsPerDay === 24) {
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
-                            } else if (readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) { 
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            } else if (readingsBlueprint.readingsPerDay === 48 && intervalRowSegment === ((18 * 2) + 1)) { 
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
-                            } else if (readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            } else if (readingsBlueprint.readingsPerDay === 96 && intervalRowSegment === ((18 * 4) + 3)) {
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
-                            } else if (readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            } else if (readingsBlueprint.readingsPerDay === 288 && intervalRowSegment === (18 * 4 * 3) + 11) {
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
                             }
                         } else if (hh === 0){
-                            if (intervalRowSegment === 23  && readingsPerDay === 24) {
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            if (intervalRowSegment === 23  && readingsBlueprint.readingsPerDay === 24) {
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
-                            } else if (readingsPerDay === 48 && intervalRowSegment === ((23 * 2) + 1)) { 
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            } else if (readingsBlueprint.readingsPerDay === 48 && intervalRowSegment === ((23 * 2) + 1)) { 
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
-                            } else if (readingsPerDay === 96 && intervalRowSegment === ((23 * 4) + 3)) {
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            } else if (readingsBlueprint.readingsPerDay === 96 && intervalRowSegment === ((23 * 4) + 3)) {
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
-                            } else if (readingsPerDay === 288 && intervalRowSegment === (23 * 4 * 3) + 11) {
-                                dates = monthTransition(intervalRowSegment, readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
+                            } else if (readingsBlueprint.readingsPerDay === 288 && intervalRowSegment === (23 * 4 * 3) + 11) {
+                                dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
                             }
                         }
                         countDown.initCountDown(syncDdAndDayOfTheMonthCount(lastDayDd, monthEngine(lastDayYyyy, lastDayMm)));
                     } else {
-                        intervalLengthTimeValue += dateTransition(intervalRowSegment, readingsPerDay, hh);
+                        intervalLengthTimeValue += dateTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, hh);
                     }
                     //add a comma to the row unless this is the last segment
-                    if (intervalRowSegment !== readingsPerDay - 1) {
+                    if (intervalRowSegment !== readingsBlueprint.readingsPerDay - 1) {
                         comma = ',';
                     } else {
                         comma = '';
                     }
 
-                    if(genRandomLifeLikeData === true){
-                        intervalValue = createLifeLikePseudoRandomInterval(intervalRowSegment, readingsPerDay);
+                    if(readingsBlueprint.genRandomLifeLikeData === true){
+                        intervalValue = createLifeLikePseudoRandomInterval(intervalRowSegment, readingsBlueprint.readingsPerDay);
                         intervalValues.push(intervalValue);
-                        if(intervalRowSegment === readingsPerDay - 1){
+                        if(intervalRowSegment === readingsBlueprint.readingsPerDay - 1){
                             cumulativeReadingValues.push(addIntervalsToCumulative(intervalValues));
                             intervalValues = [];
                         }
                     } else {
-                        intervalValue = dailyRegisterRead / readingsPerDay;
+                        intervalValue = dailyRegisterRead / readingsBlueprint.readingsPerDay;
                     }
 
-                    intervalProtocolCode = getProtocolCode(randomMissingReadings, protocolCode);
+                    intervalProtocolCode = getProtocolCode(readingsBlueprint.randomMissingReadings, protocolCode);
                     if(intervalProtocolCode !== 'A'){
                         intervalValue = '';
                     }
 
                     meterText[1] += (parseInt(dates[0]) + intervalLengthTimeValue) + ',' + intervalProtocolCode + ',' + intervalValue + comma;
 
-                    if (readingsPerDay === 24) {
+                    if (readingsBlueprint.readingsPerDay === 24) {
                         intervalLengthTimeValue += 100;
-                    } else if (readingsPerDay === 48) {
+                    } else if (readingsBlueprint.readingsPerDay === 48) {
                         if (counter.number < 1) {
                             intervalLengthTimeValue += 30;
                             counter.increment();
@@ -188,7 +189,7 @@
                             intervalLengthTimeValue += 70;
                             counter.turnOver();
                         }
-                    } else if (readingsPerDay === 96) {
+                    } else if (readingsBlueprint.readingsPerDay === 96) {
                         if (counter.number < 3) {
                             intervalLengthTimeValue += 15;
                             counter.increment();
@@ -196,7 +197,7 @@
                             intervalLengthTimeValue += 55;
                             counter.turnOver();
                         }
-                    } else if (readingsPerDay === 288) {
+                    } else if (readingsBlueprint.readingsPerDay === 288) {
                         if (counter.number < 11) {
                             intervalLengthTimeValue += 5;
                             counter.increment();
@@ -225,12 +226,12 @@
             intervalValue = 0;
             lifeLikeMetersCounter--;
             //restart time count
-            yyyy = startYear;
-            mm = startMonth;
-            dd = startDay;
-            hh = setUtcOffset(useUtcOffset);
+            yyyy = readingsBlueprint.startYear;
+            mm = readingsBlueprint.startMonth;
+            dd = readingsBlueprint.startDay;
+            hh = setUtcOffset(readingsBlueprint.useUtcOffset);
         } while (lifeLikeMetersCounter > 0);
-        completeRawMeterReadingsList = addRegisterReadAndMeterNumbersMepmd01(meterNumberList, monthList, dailyRegisterRead, startingUsage, cumulativeReadingValuesCollection, genRandomLifeLikeData); //, yyyy, mm);
+        completeRawMeterReadingsList = addRegisterReadAndMeterNumbersMepmd01(meterNumberList, monthList, dailyRegisterRead, readingsBlueprint.startingUsage, cumulativeReadingValuesCollection, readingsBlueprint.genRandomLifeLikeData); //, yyyy, mm);
         for (var fileLine = 0; fileLine < completeRawMeterReadingsList.length; fileLine++) {
             textOut += (completeRawMeterReadingsList[fileLine] + '\n');
         }

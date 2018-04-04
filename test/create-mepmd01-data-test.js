@@ -42,168 +42,188 @@ var resultsOneYear96 = oneYear.resultsOneYear96;
 var resultsOneYear288 = oneYear.resultsOneYear288;
 
 var tests = [{
-    arguments: [2017, 1, 1, 1, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardOneDay24,
     testLable: 'One Day of Readings with 24 Fwd Intervals'
 },{
-    arguments: [2017, 1, 1, 1, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardOneDay48,
     testLable: 'One Day of Readings with 48 Fwd Intervals'
 }, {
-    arguments: [2017, 1, 1, 1, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardOneDay96,
     testLable: 'One Day of Readings with 96 Fwd Intervals'
 }, {
-    arguments: [2017, 1, 1, 1, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardOneDay288,
     testLable: 'One Day of Readings with 288 Fwd Intervals'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardDayTransition24,
     testLable: 'A Period of Fwd Intervals which Spans Two Days 24/day'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardDayTransition48,
     testLable: 'A Period of Fwd Intervals which Spans Two Days 48/day'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardDayTransition96,
     testLable: 'A Period of Fwd Intervals which Spans Two Days 96/day'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardDayTransition288,
     testLable: 'A Period of Fwd Intervals which Spans Two Days 288/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardMonthTransition24,
     testLable: 'A Period of Fwd Intervals which Spans Two Months 24/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardMonthTransition48,
     testLable: 'A Period of Fwd Intervals which Spans Two Months 48/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardMonthTransition96,
     testLable: 'A Period of Fwd Intervals which Spans Two Months 96/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardMonthTransition288,
     testLable: 'A Period of Fwd Intervals which Spans Two Months 288/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 24, 24, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardYearTransition24,
     testLable: 'A Period of Fwd Intervals which Spans Two Years 24/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 48, 48, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardYearTransition48,
     testLable: 'A Period of Fwd Intervals which Spans Two Years 48/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 96, 96, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardYearTransition96,
     testLable: 'A Period of Fwd Intervals which Spans Two Years 96/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 288, 288, 'FORWARD', 'TestMeter', false, false, false, false, false],
     expected: resultForwardYearTransition288,
     testLable: 'A Period of Fwd Intervals which Spans Two Years 288/day'
 }, {
-    arguments: [2017, 1, 1, 1, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseOneDay24,
     testLable: 'One Day of Readings with 24 Rev Intervals'
 }, {
-    arguments: [2017, 1, 1, 1, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseOneDay48,
     testLable: 'One Day of Readings with 48 Rev Intervals'
 }, {
-    arguments: [2017, 1, 1, 1, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseOneDay96,
     testLable: 'One Day of Readings with 96 Rev Intervals'
 }, {
-    arguments: [2017, 1, 1, 1, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 1, 1, 1, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseOneDay288,
     testLable: 'One Day of Readings with 96 Rev Intervals'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseDayTransition24,
     testLable: 'A Period of Rev Intervals which Spans Two Days 24/day'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseDayTransition48,
     testLable: 'A Period of Rev Intervals which Spans Two Days 48/day'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseDayTransition96,
     testLable: 'A Period of Rev Intervals which Spans Two Days 96/day'
 }, {
-    arguments: [2017, 2, 10, 2, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 2, 10, 2, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseDayTransition288,
     testLable: 'A Period of Rev Intervals which Spans Two Days 288/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseMonthTransition24,
     testLable: 'A Period of Rev Intervals which Spans Two Months 24/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseMonthTransition48,
     testLable: 'A Period of Rev Intervals which Spans Two Months 48/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseMonthTransition96,
     testLable: 'A Period of Rev Intervals which Spans Two Months 96/day'
 }, {
-    arguments: [2017, 6, 30, 2, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 6, 30, 2, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseMonthTransition288,
     testLable: 'A Period of Rev Intervals which Spans Two Months 288/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 24, 24, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseYearTransition24,
     testLable: 'A Period of Rev Intervals which Spans Two Years 24/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 48, 48, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseYearTransition48,
     testLable: 'A Period of Rev Intervals which Spans Two Years 48/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 96, 96, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseYearTransition96,
     testLable: 'A Period of Rev Intervals which Spans Two Years 96/day'
 }, {
-    arguments: [2017, 12, 31, 2, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false, false],
+    arguments: [2017, 12, 31, 2, 1, 0, 288, 288, 'REVERSE', 'TestMeter', false, false, false, false, false],
     expected: resultReverseYearTransition288,
     testLable: 'A Period of Rev Intervals which Spans Two Years 288/day'
 }, {
-    arguments: [2017, 1, 1, 1, 5, 0, 48, 48,'FORWARD','TestMeter',true,false,false,false,false,false],
+    arguments: [2017, 1, 1, 1, 5, 0, 48, 48,'FORWARD','TestMeter',true,false,false,false,false],
     expected: resultsFiveMeters,
     testLable: 'Five Meters with Fwd Intervals 48/day'
 }];
 
 var bigTests = [{
-    arguments: [2017, 1, 1, 365, 1, 0, 24, 24,'FORWARD','TestMeter',false,false,false,false,false,false],
+    arguments: [2017, 1, 1, 365, 1, 0, 24, 24,'FORWARD','TestMeter',false,false,false,false,false],
     expected: resultsOneYear24,
     testLable: 'One Year One Meter 24/day Intervals'
 },{
-    arguments: [2017, 1, 1, 365, 1, 0, 48, 48,'FORWARD','TestMeter',false,false,false,false,false,false],
+    arguments: [2017, 1, 1, 365, 1, 0, 48, 48,'FORWARD','TestMeter',false,false,false,false,false],
     expected: resultsOneYear48,
     testLable: 'One Year One Meter 48/day Intervals'
 },{
-    arguments: [2017, 1, 1, 365, 1, 0, 96, 96,'FORWARD','TestMeter',false,false,false,false,false,false],
+    arguments: [2017, 1, 1, 365, 1, 0, 96, 96,'FORWARD','TestMeter',false,false,false,false,false],
     expected: resultsOneYear96,
     testLable: 'One Year One Meter 96/day Intervals'
 },{
-    arguments: [2017, 1, 1, 365, 1, 0, 288, 288,'FORWARD','TestMeter',false,false,false,false,false,false],
+    arguments: [2017, 1, 1, 365, 1, 0, 288, 288,'FORWARD','TestMeter',false,false,false,false,false],
     expected: resultsOneYear288,
     testLable: 'One Year One Meter 288/day Intervals'
 }];
 
+function translateParamsToObject(paramsArray){
+	var readingsBlueprint = {};
+	readingsBlueprint.startYear = paramsArray[0];
+	readingsBlueprint.startMonth = paramsArray[1];
+	readingsBlueprint.startDay = paramsArray[2];
+	readingsBlueprint.durationInDays = paramsArray[3];
+	readingsBlueprint.howManyMeters = paramsArray[4];
+	readingsBlueprint.startingUsage = paramsArray[5];
+	readingsBlueprint.dailyUsage = paramsArray[6];
+	readingsBlueprint.readingsPerDay = paramsArray[7];
+	readingsBlueprint.flowDirection = paramsArray[8];
+	readingsBlueprint.meterName = paramsArray[9];
+	readingsBlueprint.usePrefix = paramsArray[10];
+	readingsBlueprint.randomMissingReadings = paramsArray[11];
+	readingsBlueprint.randomDigitsInName = paramsArray[12];
+	readingsBlueprint.useUtcOffset = paramsArray[13];
+	readingsBlueprint.genRandomLifeLikeData = paramsArray[14];
+	return readingsBlueprint;
+}
+
 describe('importFileCreation Test \n\tShould take user input and generate a text collection that is importable as a file', function() {
     tests.forEach(function(test) {
         it('Correctly generates ' + test.testLable, function() {
-            var returnedData = createMepmd01Data.apply(null, test.arguments);
+            var returnedData = createMepmd01Data.apply(null, [translateParamsToObject(test.arguments)]);
             assert.equal(returnedData.data.replace(/(\r\n|\n|\r)/gm, ""), test.expected);
         });
     });
 
     bigTests.forEach(function(test){
         it('Correctly generates ' + test.testLable, function() {
-            var returnedData = createMepmd01Data.apply(null, test.arguments);
+            var returnedData = createMepmd01Data.apply(null, [translateParamsToObject(test.arguments)]);
             var comparatorResults = [];
             returnedData = returnedData.data.split('\n');
             returnedData[returnedData.length-1] === '' ? returnedData.pop() : false;
