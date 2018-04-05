@@ -1,4 +1,4 @@
-;(function(){
+;(function() {
 	'use strict';
 	module.exports = createReadings;
 
@@ -17,7 +17,7 @@
                 displayInfo(readingsBlueprint, 'parameters');
                 data = createMepmd01Data(readingsBlueprint);
                 makeFile(data.data, readingsBlueprint.fileName);
-                if(readingsBlueprint.createGAIFileForMeters){
+                if (readingsBlueprint.createGAIFileForMeters) {
                     createGenericAssetImportFiles.createFile(data.meterNumberList, readingsBlueprint.fileName);
                 }
             } else {

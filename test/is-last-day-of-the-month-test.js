@@ -20,9 +20,9 @@ for (var year = 2016; year < 2017; year++) {
 	}
 }
 
-describe('isLastDayOfTheMonth Test', function(){
-	tests.forEach(function(test){
-		it(test.testLable, function(){
+describe('isLastDayOfTheMonth Test', function() {
+	tests.forEach(function(test) {
+		it(test.testLable, function() {
 			var returnedData = isLastDayOfTheMonth.apply(null, test.arguments);
 			assert.equal(returnedData, test.expected);		
 		});

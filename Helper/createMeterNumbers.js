@@ -1,4 +1,4 @@
-;(function(){
+;(function() {
 	'use strict';
 	module.exports = createMeterNumbers;
     var path = require('path');
@@ -11,7 +11,7 @@
         var meterNumber = '';
         var meterNumbers = [];
         meterName = meterName === '_' ? '' : meterName;
-        if(quantity > -1){
+        if (quantity > -1) {
         	if (usePrefix === true) {
         	    if (randomDigitsInName) {
         	        for (var i = 0; i < quantity;) {

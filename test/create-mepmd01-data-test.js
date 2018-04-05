@@ -193,7 +193,7 @@ var bigTests = [{
     testLable: 'One Year One Meter 288/day Intervals'
 }];
 
-function translateParamsToObject(paramsArray){
+function translateParamsToObject(paramsArray) {
 	var readingsBlueprint = {};
 	readingsBlueprint.startYear = paramsArray[0];
 	readingsBlueprint.startMonth = paramsArray[1];
@@ -221,7 +221,7 @@ describe('importFileCreation Test \n\tShould take user input and generate a text
         });
     });
 
-    bigTests.forEach(function(test){
+    bigTests.forEach(function(test) {
         it('Correctly generates ' + test.testLable, function() {
             var returnedData = createMepmd01Data.apply(null, [translateParamsToObject(test.arguments)]);
             var comparatorResults = [];

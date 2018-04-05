@@ -1,4 +1,4 @@
-createMepmd01Data(){  
+createMepmd01Data() {  
     Do all the following while lifeLikeMetersCounter is more than 0
         For the number of iterations equal to the lengtgh of day that is specified by the input
             Find the number of days in the "current" month (reletive to the start date)  

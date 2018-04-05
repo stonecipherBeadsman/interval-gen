@@ -12,9 +12,9 @@ var interval = 0;
 
 var intervalLengthTimes = getIntervalLengthTime().possibleReadingsPerDay;
 
-function sum(intervalArray){
+function sum(intervalArray) {
     var cumulativeSum = 0;
-    for (var i = 0; i < intervalArray.length; i++){
+    for (var i = 0; i < intervalArray.length; i++) {
         cumulativeSum += intervalArray[i];
     }
     return cumulativeSum;
@@ -33,10 +33,10 @@ for (var readingsPerDayPosition = 0; readingsPerDayPosition < intervalLengthTime
     intervals = [];
 }
 
-describe('addIntervalsToCumulative Test', function(){
+describe('addIntervalsToCumulative Test', function() {
 	var returnedData;
-	tests.forEach(function(test){
-		it(test.label,function(){            
+	tests.forEach(function(test) {
+		it(test.label,function() {            
             returnedData = addIntervalsToCumulative.apply(null, test.arguments);
 			expect(returnedData).to.be.equal(test.expected);
 		});

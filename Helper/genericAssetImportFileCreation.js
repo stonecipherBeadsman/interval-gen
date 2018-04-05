@@ -60,7 +60,7 @@
         var demandMultiplier = '';
         var assetType = '';
 
-        for(var x = 0; x < listToCreate.length; x++){
+        for(var x = 0; x < listToCreate.length; x++) {
 
             meterNumber = listToCreate[x];
             meterStatus = 'ACTIVE';

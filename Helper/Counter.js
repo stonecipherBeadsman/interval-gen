@@ -36,7 +36,7 @@
                 this.number = 0;
                 return this.number * minuteInterval;
             },
-            getValue: function(){
+            getValue: function() {
                 return this.number;
             },
             initCountDown: function(daysLeftInCurrentMonth) {

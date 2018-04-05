@@ -16,29 +16,29 @@ describe('monthEngine Test', function() {
         for (var year = startYear; year <= endYear; year++) {
         	for (var month = 1; month <= 12; month++) {
         		monthEngineResult = monthEngine(year,month);
-        		if(leapYears.indexOf(year)>-1 && month === 2){
+        		if (leapYears.indexOf(year)>-1 && month === 2) {
         			//console.log('the year ' + year + ' should be a Leap Year');
         			monthEngineResult.should.equal(29);
         			monthEngineResult.should.not.equal(28);
         		}
         	}
-        	if(year === endYear){
+        	if (year === endYear) {
         		done();
         	}
         }
 
     });
 
-    it('Should Return the correct number of days for each month', function(done){
+    it('Should Return the correct number of days for each month', function(done) {
 
         for (var year = startYear; year <= endYear; year++) {
         	for (var month = 1; month <= 12; month++) {
         		monthEngineResult = monthEngine(year,month);        		
-        		if(leapYears.indexOf(year)>-1 && month === 2){
+        		if (leapYears.indexOf(year)>-1 && month === 2) {
         			monthEngineResult.should.equal(29);
         		}
         	}
-        	if(year === endYear){
+        	if (year === endYear) {
         		done();
         	}
         }

@@ -18,11 +18,11 @@ for (var intervalLengthTime = 0; intervalLengthTime < intervalLengthTimes.length
 	}
 }
 
-describe('createLifeLikePseudoRandomInterval Test', function(){
+describe('createLifeLikePseudoRandomInterval Test', function() {
 	var returnedData;
-	tests.forEach(function(test){
+	tests.forEach(function(test) {
 		returnedData = createLifeLikePseudoRandomInterval.apply(null, test.arguments);
-		it(test.label + ' = ' + returnedData,function(){
+		it(test.label + ' = ' + returnedData,function() {
 			expect(returnedData).to.be.within(0,3.5);
 		});
 	});		

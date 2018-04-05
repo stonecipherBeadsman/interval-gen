@@ -41,7 +41,7 @@ function dateTransitionBaseline(intervalRowSegment, readingsPerDay, hh) {
     }
 }
 
-function buildIntervalRowSegmentValues(hhValues, readingsPerdayValues){
+function buildIntervalRowSegmentValues(hhValues, readingsPerdayValues) {
 	var ret  = [];
 	for (var i = 0; i < readingsPerdayValues.length; i++) {
 		ret.push([]);
@@ -52,11 +52,11 @@ function buildIntervalRowSegmentValues(hhValues, readingsPerdayValues){
 	return ret;
 }
 
-function buildTestCasesAndExpectedResults(intervalRowSegmentValues, readingsPerdayValues, hhValues){
+function buildTestCasesAndExpectedResults(intervalRowSegmentValues, readingsPerdayValues, hhValues) {
 	var tests = [];
 	var test = {};
-	for (var k = 0; k < hhValues.length; k++){
-		intervalRowSegmentValues.forEach(function(intervalRowSegmentValueList){
+	for (var k = 0; k < hhValues.length; k++) {
+		intervalRowSegmentValues.forEach(function(intervalRowSegmentValueList) {
 			for (var m = 0; m < intervalRowSegmentValueList.length; m++) {
 				test.arguments = [intervalRowSegmentValueList[m],intervalRowSegmentValueList.length,hhValues[k]];
 				test.expected = dateTransitionBaseline.apply(null, test.arguments);
@@ -69,9 +69,9 @@ function buildTestCasesAndExpectedResults(intervalRowSegmentValues, readingsPerd
 	return tests;	
 }
 
-describe('dateTransition Test', function(){
-	tests.forEach(function(test){
-		it(test.testLable, function(){
+describe('dateTransition Test', function() {
+	tests.forEach(function(test) {
+		it(test.testLable, function() {
 			var returnedData = dateTransition.apply(null, test.arguments);
 			assert.equal(returnedData, test.expected);		
 		});

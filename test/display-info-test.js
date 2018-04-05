@@ -10,8 +10,8 @@ var baseCase = [2017, 1, 1, 1, 1, 'displayInfoTestFileName',0, 24, 0, 1,'FORWARD
 var testCase = [];
 var testCaseObj = {};
 
-function displayInfoBaseline(readingsBlueprint, displayType){
-		if(displayType === 'parameters'){
+function displayInfoBaseline(readingsBlueprint, displayType) {
+		if (displayType === 'parameters') {
 			return '------------------------------------------' +
 	                    '\n--------------Parameters Used-------------' +
 	                    '\n------------------------------------------' +
@@ -51,7 +51,7 @@ function displayInfoBaseline(readingsBlueprint, displayType){
 	                    '\n------------------------------------------' +
 	                    '\n18| createGAIFileForMeters:',readingsBlueprint.createGAIFileForMeters +
 	                    '\n------------------------------------------';			
-		} else if (displayType === 'menu'){
+		} else if (displayType === 'menu') {
 			return  '----------------------------------------------------------------' +
                         '\n-------------------------Arguments------------------------------' + 
                         '\n----------------------------------------------------------------' +
@@ -95,7 +95,7 @@ function displayInfoBaseline(readingsBlueprint, displayType){
 		}
 	}
 
-function translateParamsToObject(paramsArray){
+function translateParamsToObject(paramsArray) {
 	var readingsBlueprint = {};
 	readingsBlueprint.startYear = paramsArray[0];
 	readingsBlueprint.startMonth = paramsArray[1];

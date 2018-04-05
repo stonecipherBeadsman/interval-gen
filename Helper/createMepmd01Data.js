@@ -1,4 +1,4 @@
-;(function(){
+;(function() {
 	'use strict';
 	module.exports = createMepmd01Data;
 
@@ -121,7 +121,7 @@
                             lastDayYyyy = yyyy + 1;
                         }
                         var lastDayDd = 1;
-                        if(hh === 5){
+                        if (hh === 5) {
                             if (intervalRowSegment === 18  && readingsBlueprint.readingsPerDay === 24) {
                                 dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
@@ -135,7 +135,7 @@
                                 dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
                             }
-                        } else if (hh === 0){
+                        } else if (hh === 0) {
                             if (intervalRowSegment === 23  && readingsBlueprint.readingsPerDay === 24) {
                                 dates = monthTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, lastDayYyyy, lastDayMm, lastDayDd, hh);
                                 intervalLengthTimeValue = 0;
@@ -161,10 +161,10 @@
                         comma = '';
                     }
 
-                    if(readingsBlueprint.genRandomLifeLikeData === true){
+                    if (readingsBlueprint.genRandomLifeLikeData === true) {
                         intervalValue = createLifeLikePseudoRandomInterval(intervalRowSegment, readingsBlueprint.readingsPerDay);
                         intervalValues.push(intervalValue);
-                        if(intervalRowSegment === readingsBlueprint.readingsPerDay - 1){
+                        if (intervalRowSegment === readingsBlueprint.readingsPerDay - 1) {
                             cumulativeReadingValues.push(addIntervalsToCumulative(intervalValues));
                             intervalValues = [];
                         }
@@ -173,7 +173,7 @@
                     }
 
                     intervalProtocolCode = getProtocolCode(readingsBlueprint.randomMissingReadings, protocolCode);
-                    if(intervalProtocolCode !== 'A'){
+                    if (intervalProtocolCode !== 'A') {
                         intervalValue = '';
                     }
 

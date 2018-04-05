@@ -9,7 +9,7 @@ var unscaledMax = 0;
 var intervalMultiplier = 0;
 var multiplier = 0;
 
-function getScaledIntervalBoundBaseline(unscaledMax, multiplier, intervalMultiplier){
+function getScaledIntervalBoundBaseline(unscaledMax, multiplier, intervalMultiplier) {
     return (unscaledMax / intervalMultiplier)  * multiplier;
 }
 
@@ -25,10 +25,10 @@ for (var i = 0; i < 100; i++) {
 };
 
 
-describe('getScaledIntervalBound Test', function(){
+describe('getScaledIntervalBound Test', function() {
 	var returnedData;
-	tests.forEach(function(test){
-		it(test.testLable, function(){
+	tests.forEach(function(test) {
+		it(test.testLable, function() {
 			returnedData = getScaledIntervalBound.apply(null, test.arguments);
 			assert.equal(returnedData, test.expected);
 		});

@@ -11,7 +11,7 @@ var baseCase =  [2017, 1, 1, 1, 1, 0, 24, readingsPerDay, parserNumber,'FORWARD'
 var testCase = [];
 var testCaseObj = {};
 
-function translateParamsToObject(paramsArray){
+function translateParamsToObject(paramsArray) {
 	var readingsBlueprint = {};
 	readingsBlueprint.startYear = paramsArray[0];
 	readingsBlueprint.startMonth = paramsArray[1];
@@ -37,7 +37,7 @@ for (var i = 0; i < parserNumber.length; i++) {
 	for (var j = 0; j < readingsPerDay.length; j++) {
 		testCase = baseCase;
 		testCase[8] = parserNumber[i];
-		if (i > 0){
+		if (i > 0) {
 			testCase[7] = 24;
 			test.expected = '1 is the only parser number currently supported';
 		} else {
@@ -55,17 +55,17 @@ for (var i = 0; i < parserNumber.length; i++) {
 }
 
 
-describe('createReadings Test', function(){
-	tests.forEach(function(test){
-		it(test.label, function(){
-			expect(function(){
+describe('createReadings Test', function() {
+	tests.forEach(function(test) {
+		it(test.label, function() {
+			expect(function() {
 				createReadings.apply(null, test.arguments)
 			}).to.throw(Error, test.expected);
 		});
 	});
-	it('Should display parameter table', function(){
+	it('Should display parameter table', function() {
 		console.log('not to throw')
-		expect(function(){
+		expect(function() {
 			createReadings.apply(null, [translateParamsToObject(validCase)]);
 		}).not.to.throw('Must choose \'parameters\' or \'menu\'');
 	});

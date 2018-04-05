@@ -1,4 +1,4 @@
-;(function(){
+;(function() {
 	'use strict';
 	module.exports = getProtocolCode;
     function getProtocolCode(randomMissingReadings, protocolCode) {

@@ -31,15 +31,15 @@ function monthTransitionBaseline(intervalRowSegment, readingsPerDay, lastDayYyyy
 
 }
 
-function buildDatesObjectArray(daysBackFromLastDayOfMonth, lengthInYears){
+function buildDatesObjectArray(daysBackFromLastDayOfMonth, lengthInYears) {
 	var dates = [];
 	var date = {};
 	var startYear = 2017;
 	var endYear = startYear + lengthInYears;
-	for (var year = startYear; year < endYear; year++){
-		for (var month = 1; month <= 12; month++){
-			for (var day = 1; day <= monthEngine(year, month); day++){
-				if(day > monthEngine(year, month) - daysBackFromLastDayOfMonth){
+	for (var year = startYear; year < endYear; year++) {
+		for (var month = 1; month <= 12; month++) {
+			for (var day = 1; day <= monthEngine(year, month); day++) {
+				if (day > monthEngine(year, month) - daysBackFromLastDayOfMonth) {
 					date.year = year; 
 					date.month = month; 
 					date.day = day;
@@ -52,7 +52,7 @@ function buildDatesObjectArray(daysBackFromLastDayOfMonth, lengthInYears){
 	return dates;
 }
 
-function buildIntervalRowSegmentValuesObjectArray(readingsPerdayValues){
+function buildIntervalRowSegmentValuesObjectArray(readingsPerdayValues) {
 	var ret  = [];
 	var intervalRowSegment = {};
 	var values = [];
@@ -68,10 +68,10 @@ function buildIntervalRowSegmentValuesObjectArray(readingsPerdayValues){
 	return ret;
 }
 
-function buildParameterArrays(intervalRowSegmentValues, hh, dates){
+function buildParameterArrays(intervalRowSegmentValues, hh, dates) {
 	var parameterObjectArray = [];
 	var parameters = {};
-	intervalRowSegmentValues.forEach(function(values){
+	intervalRowSegmentValues.forEach(function(values) {
 		//map intervals onto given dates
 		var readingsPerDay = values.values.length;
 		var readingsPerHour = readingsPerDay / 24;
@@ -92,7 +92,7 @@ function buildParameterArrays(intervalRowSegmentValues, hh, dates){
 	return parameterObjectArray;
 }
 
-function buildTestCasesAndExpectedResults(parameterObjectArray){
+function buildTestCasesAndExpectedResults(parameterObjectArray) {
 	var tests = [];
 	var test = {};
 	for (var parameterObject = parameterObjectArray.length - 1; parameterObject >= 0; parameterObject--) {
@@ -113,9 +113,9 @@ var intervalRowSegmentValues = buildIntervalRowSegmentValuesObjectArray(readings
 var parameterArrays = buildParameterArrays(intervalRowSegmentValues, hh, dates);
 var tests = buildTestCasesAndExpectedResults(parameterArrays);
 
-describe('monthTransition Test', function(){
-	tests.forEach(function(test){
-		it(test.testLable, function(){
+describe('monthTransition Test', function() {
+	tests.forEach(function(test) {
+		it(test.testLable, function() {
 			var returnedData = monthTransition.apply(null, test.arguments);
 			assert.equal(returnedData, test.expected);		
 		});

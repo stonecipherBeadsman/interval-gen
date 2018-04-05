@@ -1,9 +1,9 @@
-;(function(){
+;(function() {
 	'use strict';
 	module.exports = displayInfo;
 
-	function displayInfo(readingsBlueprint, displayType){
-		if(displayType === 'parameters'){
+	function displayInfo(readingsBlueprint, displayType) {
+		if (displayType === 'parameters') {
 			console.log('------------------------------------------',
 	                    '\n--------------Parameters Used-------------',
 	                    '\n------------------------------------------',
@@ -43,7 +43,7 @@
 	                    '\n------------------------------------------',
 	                    '\n18| createGAIFileForMeters:',readingsBlueprint.createGAIFileForMeters,
 	                    '\n------------------------------------------');			
-		} else if (displayType === 'menu'){
+		} else if (displayType === 'menu') {
 			console.log(  '----------------------------------------------------------------',
                         '\n-------------------------Arguments------------------------------', 
                         '\n----------------------------------------------------------------',

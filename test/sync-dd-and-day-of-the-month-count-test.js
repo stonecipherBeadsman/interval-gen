@@ -19,9 +19,9 @@ for (var year = 2016; year < 2017; year++) {
 	}
 }
 
-describe('syncDdAndDayOfTheMonthCount Test \n\tShould take a day of the month counter and a number of days in the month and return the difference between the two if the day value is > 1', function(){
-	tests.forEach(function(test){
-		it(test.testLable, function(){
+describe('syncDdAndDayOfTheMonthCount Test \n\tShould take a day of the month counter and a number of days in the month and return the difference between the two if the day value is > 1', function() {
+	tests.forEach(function(test) {
+		it(test.testLable, function() {
 			var returnedData = syncDdAndDayOfTheMonthCount.apply(null, test.arguments);
 			assert.equal(returnedData, test.expected);		
 		});

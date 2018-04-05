@@ -1,4 +1,4 @@
-;(function(){
+;(function() {
     'use strict';
     module.exports = monthTransition;
     var path = require('path');

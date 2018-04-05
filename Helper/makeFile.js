@@ -1,4 +1,4 @@
-;(function(){
+;(function() {
 	'use strict';
     var fs = require('fs');
     var path = require('path');
@@ -14,7 +14,7 @@
         }
         var writer = data;
 
-        if (!fs.existsSync(dir)){
+        if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir);
         }
 

@@ -37,9 +37,9 @@ var tests = [
 	}
 ];
 
-describe('setUOM Test \n\tLooks at the first Letter in the \n\tgiven string and returns a result', function(){
-	tests.forEach(function(test){
-		it(test.testLable, function(){
+describe('setUOM Test \n\tLooks at the first Letter in the \n\tgiven string and returns a result', function() {
+	tests.forEach(function(test) {
+		it(test.testLable, function() {
 			var returnedData = setUOM.apply(null, test.arguments);
 			assert.equal(returnedData.intUom, test.expected.intUom);
 			assert.equal(returnedData.regUom, test.expected.regUom);
