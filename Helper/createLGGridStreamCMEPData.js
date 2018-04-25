@@ -5,16 +5,8 @@
     var fs = require('fs');
     var path = require('path');
 
-    var monthEngine = require( path.resolve(__dirname ,'../Helper/monthEngine.js'));
     var Counter = require( path.resolve(__dirname ,'../Helper/Counter.js'));
-    var getBooleanValue = require( path.resolve(__dirname ,'../Helper/getBooleanValue.js'));
     var setUtcOffset = require( path.resolve(__dirname ,'../Helper/setUtcOffset.js'));
-    var syncDdAndDayOfTheMonthCount = require( path.resolve(__dirname ,'../Helper/syncDdAndDayOfTheMonthCount.js'));
-    var isLastDayOfTheMonth = require( path.resolve(__dirname ,'../Helper/isLastDayOfTheMonth.js'));
-    var randomIntFromInterval = require( path.resolve(__dirname ,'../Helper/randomIntFromInterval.js'));
-    var padNumber = require( path.resolve(__dirname ,'../Helper/padNumber.js'));
-    var inputToArrayAtNewline = require( path.resolve(__dirname ,'../Helper/inputToArrayAtNewline.js'));
-    var getProtocolCode = require( path.resolve(__dirname ,'../Helper/getProtocolCode.js'));
     var translateDateToParserFormat = require( path.resolve(__dirname ,'../Helper/translateDateToParserFormat.js'));
     var dateTransition = require( path.resolve(__dirname ,'../Helper/dateTransition.js'));
     var monthTransition = require( path.resolve(__dirname ,'../Helper/monthTransition.js'));
@@ -47,21 +39,26 @@
         var daysInCurrentMonth = 0;
         var daysLeftInCurrentMonth = 0;
         var isLastDayOfMonth = 0;
-        var regUom = '';
-        var intUom = '';
-        var protocolCode = 'A';
-        var intervalProtocolCode = '';
         var intervalValue = 0;
         var intervalValues = [];
-        var cumulativeReadingValues = [];
-        var cumulativeReadingValuesCollection = [];
         var lifeLikeMetersCounter = meterNumberList.length;
         var ret = {};
-        var flowDirection = {};
+        var lgGridstream = {};
 
-        flowDirection = setUOM.niscMepmd01(readingsBlueprint.flowDirection);
-        intUom = flowDirection.intUom;
-        regUom = flowDirection.regUom;
+        lgGridstream.recordType = 'MEPMD01';
+        lgGridstream.recordVersion = '20080519';
+        lgGridstream.timeStamp = translateDateToParserFormat.lgGridstream(yyyy, mm, dd, hh);
+        lgGridstream.premiseID = '100074';
+        lgGridstream.esiid = '';
+        lgGridstream.provisioned = '';
+        lgGridstream.meterID = '';
+        lgGridstream.purpose = 'OK';
+        lgGridstream.commodity = '';
+        lgGridstream.units = '';
+        lgGridstream.calculationConstant = '';
+        lgGridstream.interval = '';
+        lgGridstream.count = '';
+        lgGridstream.firstIntervalDateTime = '';
 
         do {
             for (var x = 0; x < readingsBlueprint.durationInDays; x++) {
@@ -74,8 +71,7 @@
                 isLastDayOfMonth = isLastDayOfTheMonth(dayOfTheMonthCount, daysInCurrentMonth, countDown.getCurrentCountDownPlaceValue());
                 dates = translateDateToParserFormat.niscMepmd01(yyyy, mm, dd, hh);
                 meterText = [
-                    'MEPMD01,19970819,DCSI,,,,201407071645,METER_NUMBER_PLACEHOLDER,OK,E,' + regUom + ',1,00000000,1,' + dates[0] + ',A,' + 'REGISTER_READ_PLACEHOLDER',
-                    'MEPMD01,19970819,DCSI,,,,201407071645,METER_NUMBER_PLACEHOLDER,OK,E,' + intUom + ',1,'
+                    lgGridstream.recordType
                 ];
                 var intervalLengthTimeValue = 0;
                 var comma = '';
@@ -84,30 +80,24 @@
                     //populate the value that states the number of intervals on the reading 
                     if ((intervalRowSegment % readingsBlueprint.readingsPerDay) === 0) {
                         if (readingsBlueprint.readingsPerDay === 24) {
-                            meterText[1] += '00000100,24,';
-                            //if the request is for 24 readings then the initial date needs to be +1 hour
                             intervalLengthTimeValue = 100;
                         } else if (readingsBlueprint.readingsPerDay === 48) {
                             counter.turnOver();
                             counter.increment();
                             //if the request is for 48 readings then the initial date needs to be +30 minutes
                             //and the cycle counter needs to be incremented
-                            meterText[1] += '00000030,48,';
                             intervalLengthTimeValue = 30;
                         } else if (readingsBlueprint.readingsPerDay === 96) {
                             counter.turnOver();
                             counter.increment();
                             //if the request is for 96 readings then the initial date needs to be +15 minutes
                             //and the cycle counter needs to be incremented
-                            meterText[1] += '00000015,96,';
                             intervalLengthTimeValue = 15;
                         } else if (readingsBlueprint.readingsPerDay === 288) {
                             counter.turnOver();
                             counter.increment();
                             //if the request is for 288 readings then the initial date needs to be +5 minutes
                             //and the cycle counter needs to be incremented
-                            meterText[1] += '00000005,288,';
-                            intervalLengthTimeValue = 5;
                         }
                     }
                     if (isLastDayOfMonth) {
@@ -231,12 +221,7 @@
             dd = readingsBlueprint.startDay;
             hh = setUtcOffset(readingsBlueprint.useUtcOffset);
         } while (lifeLikeMetersCounter > 0);
-        completeRawMeterReadingsList = addRegisterReadAndMeterNumbersMepmd01(meterNumberList, monthList, dailyRegisterRead, readingsBlueprint.startingUsage, cumulativeReadingValuesCollection, readingsBlueprint.genRandomLifeLikeData, readingsBlueprint.parser); //, yyyy, mm);
-        for (var fileLine = 0; fileLine < completeRawMeterReadingsList.length; fileLine++) {
-            textOut += (completeRawMeterReadingsList[fileLine] + '\n');
-        }
-        ret.data = textOut;
-        ret.meterNumberList = meterNumberList ;
+
         return ret;
     }
 

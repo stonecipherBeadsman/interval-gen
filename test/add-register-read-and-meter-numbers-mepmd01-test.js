@@ -17,6 +17,7 @@ addRegisterReadAndMeterNumbersMepmd01Obj.dailyRegisterRead = 24;
 addRegisterReadAndMeterNumbersMepmd01Obj.startingUsage = 0;
 addRegisterReadAndMeterNumbersMepmd01Obj.cumulativeReadingValuesCollection = null;
 addRegisterReadAndMeterNumbersMepmd01Obj.useLifeLikeData = false;
+addRegisterReadAndMeterNumbersMepmd01Obj.parserNumber = 1;
 
 test.arguments = [addRegisterReadAndMeterNumbersMepmd01Obj.meterNumbers, addRegisterReadAndMeterNumbersMepmd01Obj.monthList, addRegisterReadAndMeterNumbersMepmd01Obj.dailyRegisterRead, 
         addRegisterReadAndMeterNumbersMepmd01Obj.startingUsage, addRegisterReadAndMeterNumbersMepmd01Obj.cumulativeReadingValuesCollection, addRegisterReadAndMeterNumbersMepmd01Obj.useLifeLikeData];
@@ -24,7 +25,7 @@ test.expected = addRegisterReadAndMeterNumbersMepmd01.apply(null, test.arguments
 test.testLable = 'The given parameters produce a comination of the interval readings and the meter numbers and the cumulative readings';
 tests.push(test);
 
-function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyRegisterRead, startingUsage, cumulativeReadingValuesCollection, useLifeLikeData) {
+function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyRegisterRead, startingUsage, cumulativeReadingValuesCollection, useLifeLikeData, parserNumber) {
     var a = [];
     var b = [];
     var registerReadCounter = 0;
@@ -32,6 +33,7 @@ function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyReg
     var start = 0;
     var stop = numberOfCumulativesPerMeter;
     var buildingCumulative = startingUsage;
+    var deliminator = parserNumber === 2 ? '~' : ',';
     for (var k = 0; k < meterNumbers.length; k++) {
         for (var l = start; l < stop; l++) {
             for (var h = 0; h < monthList[l].length; h++) {
@@ -49,12 +51,12 @@ function addRegisterReadAndMeterNumbersMepmd01(meterNumbers, monthList, dailyReg
                 b.push(a);
             }
             if (l === stop - 1) { //flawed
-                var lastIntervalRow = a.split(',');
+                var lastIntervalRow = a.split(deliminator);
                 var dateFromLastInterval = lastIntervalRow[lastIntervalRow.length - 3];
                 var lastRegisterReadRow = dateFromLastInterval;
-                lastRegisterReadRow = monthList[0][0].split(',');
+                lastRegisterReadRow = monthList[0][0].split(deliminator);
                 lastRegisterReadRow[14] = dateFromLastInterval;
-                lastRegisterReadRow = lastRegisterReadRow.join(',');
+                lastRegisterReadRow = lastRegisterReadRow.join(deliminator);
                 if (useLifeLikeData) {
                     b.push(lastRegisterReadRow.replace('METER_NUMBER_PLACEHOLDER', meterNumbers[k]).replace('REGISTER_READ_PLACEHOLDER', buildingCumulative));
                     buildingCumulative = startingUsage;

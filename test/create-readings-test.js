@@ -8,7 +8,7 @@ var readingsPerDay = [1,3,6,9,7,1000];
 var parserNumber = [1,2];
 var validCase = [2017, 1, 1, 1, 1, 0, 24,             24,            1,'FORWARD', 'TestMeter', false, false, false, false, false];
 var baseCase =  [2017, 1, 1, 1, 1, 0, 24, readingsPerDay, parserNumber,'FORWARD', 'TestMeter', false, false, false, false, false]
-var testCase = [];
+var testCase = [1,2,3];
 var testCaseObj = {};
 
 function translateParamsToObject(paramsArray) {
@@ -37,9 +37,9 @@ for (var i = 0; i < parserNumber.length; i++) {
 	for (var j = 0; j < readingsPerDay.length; j++) {
 		testCase = baseCase;
 		testCase[8] = parserNumber[i];
-		if (i > 0) {
+		if (i > 1) {
 			testCase[7] = 24;
-			test.expected = '1 is the only parser number currently supported';
+			test.expected = '1 and 2 are the only parse numbers currently supported';
 		} else {
 			testCase[7] = readingsPerDay[j];
 			test.expected = 'Please Choose 24, 48, 96, or 288 readings per day';

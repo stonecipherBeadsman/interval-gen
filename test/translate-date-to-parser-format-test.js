@@ -7,7 +7,7 @@ var tests = ['2017','1','2','3']
 describe('translateDateToParserFormat Test', function() {
 
 
-	var returnedData = translateDateToParserFormat.apply(null, tests);
+	var returnedData = translateDateToParserFormat.niscMepmd01.apply(null, tests);
 	it('Should return a String representation of the datew/no spaces and prepended 0\'s', function() {
 			assert.equal('201701020300', returnedData);
 	});
