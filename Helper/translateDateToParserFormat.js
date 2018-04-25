@@ -26,6 +26,8 @@
     }
 
     function lgGridstream(yyyy, mm, dd, hh){
+        //right now this will only return pm at 12
+        //but, timestamp is only able to be midnight atm soo...
         var dateValues = [mm, dd, hh];
         for (var x = 0; x < dateValues.length; x++) {
             if (dateValues[x] < 10) {
