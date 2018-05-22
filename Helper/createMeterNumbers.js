@@ -41,7 +41,7 @@
         	}
         } else {
         	//get list of meters from file
-        	var meterFile = '../Input/meterList.txt';
+        	var meterFile = './Input/meterList.txt';
         	var filePath = meterFile;
         	var meters = fs.readFileSync(filePath, {
             	encoding: 'utf-8'

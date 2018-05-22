@@ -20,7 +20,7 @@ describe('translateDateToParserFormat.niscMepmd01 Test', function() {
 
 describe('translatedDateToParserFormat.lgGridstream Test', function() {
 	var returnedData = translateDateToParserFormat.lgGridstream.apply(null, tests.lgGridstream.success);
-	it.only('Should return a String representation of the date  MMDDYYYHHMMSS{AM/PM}0', function() {
+	it('Should return a String representation of the date  MMDDYYYHHMMSS{AM/PM}0', function() {
 			assert.equal('01022018030000AM', returnedData);
 	});
 });
