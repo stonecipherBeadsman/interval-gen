@@ -6,8 +6,8 @@ var tests = [];
 var test = {};
 var readingsPerDay = [1,3,6,9,7,1000];
 var parserNumber = [1,2];
-var validCase = [2017, 1, 1, 1, 1, 0, 24,             24,            1,'FORWARD', 'TestMeter', false, false, false, false, false];
-var baseCase =  [2017, 1, 1, 1, 1, 0, 24, readingsPerDay, parserNumber,'FORWARD', 'TestMeter', false, false, false, false, false]
+var validCase = [2017, 1, 1, 1, 1, 0, 24,             24,            1,'FORWARD', 'TestMeter', false, false, false, false, false, undefined];
+var baseCase =  [2017, 1, 1, 1, 1, 0, 24, readingsPerDay, parserNumber,'FORWARD', 'TestMeter', false, false, false, false, false, undefined];
 var testCase = [1,2,3];
 var testCaseObj = {};
 
@@ -30,6 +30,7 @@ function translateParamsToObject(paramsArray) {
 	readingsBlueprint.useUtcOffset = paramsArray[14];
 	readingsBlueprint.genRandomLifeLikeData = paramsArray[15];
 	readingsBlueprint.createGAIFileForMeters = paramsArray[16];
+	readingsBlueprint.ownerName = paramsArray[17];
 	return readingsBlueprint;
 }
 
@@ -64,9 +65,23 @@ describe('createReadings Test', function() {
 		});
 	});
 	it('Should display parameter table', function() {
-		console.log('not to throw')
 		expect(function() {
 			createReadings.apply(null, [translateParamsToObject(validCase)]);
 		}).not.to.throw('Must choose \'parameters\' or \'menu\'');
+	});
+	it('Should reject due to no @ sign in owner name format', function(){
+		expect(function(){
+			createReadings.apply(null, [translateParamsToObject([2017, 1, 1, 1, 1, 0, 24, 24, 1,'FORWARD', 'TestMeter', false, false, false, false, false, true, 'namedomain'])])
+		}).to.throw(Error);
+	});
+	it('Should reject due to no a username with a domain but no username like @domain', function(){
+		expect(function(){
+			createReadings.apply(null, [translateParamsToObject([2017, 1, 1, 1, 1, 0, 24, 24, 1,'FORWARD', 'TestMeter', false, false, false, false, false, true, '@domain'])])
+		}).to.throw(Error);
+	});
+	it('Should reject due to no a username with a domain but no username like name@', function(){
+		expect(function(){
+			createReadings.apply(null, [translateParamsToObject([2017, 1, 1, 1, 1, 0, 24, 24, 1,'FORWARD', 'TestMeter', false, false, false, false, false, true, 'name@'])])
+		}).to.throw(Error);
 	});
 });

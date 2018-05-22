@@ -41,6 +41,7 @@
             readingsBlueprint.useUtcOffset = JSON.parse(process.argv[17]);
             readingsBlueprint.genRandomLifeLikeData = JSON.parse(process.argv[18]);
             readingsBlueprint.createGAIFileForMeters = JSON.parse(process.argv[19]);
+            readingsBlueprint.ownerName = process.argv[20];
 
             createReadings(readingsBlueprint);
         }

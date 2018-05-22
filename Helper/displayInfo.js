@@ -42,6 +42,8 @@
 	                    '\n17| genRandomLifeLikeData:',readingsBlueprint.genRandomLifeLikeData,
 	                    '\n------------------------------------------',
 	                    '\n18| createGAIFileForMeters:',readingsBlueprint.createGAIFileForMeters,
+	                    '\n------------------------------------------',
+	                    '\n19| ownerName:',readingsBlueprint.ownerName,
 	                    '\n------------------------------------------');			
 		} else if (displayType === 'menu') {
 			console.log(  '----------------------------------------------------------------',
@@ -80,7 +82,10 @@
                         '\n 16| Generate Life Like Data [true|false]',
                         '\n----------------------------------------------------------------',
                         '\n 17| Create Asset Import File for Meters? [true|false]',
-                        '\n----------------------------------------------------------------');
+                        '\n----------------------------------------------------------------',
+						'\n 18| Owner Name: If 17 is true you can edit the owner of the',
+						'\n  +| asset in the form of <name>@<domain>',
+	                    '\n----------------------------------------------------------------');
 		} else {
 			throw Error('Must choose \'parameters\' or \'menu\'');
 		}

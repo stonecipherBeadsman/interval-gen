@@ -8,8 +8,12 @@
         createAssetsFromList
     };
 
-    function createAssetsFromList(listToCreate) {
+    function createAssetsFromList(listToCreate, ownerName) {
         //for loop creating assets storing them in list then returning
+        if(ownerName === undefined){
+            ownerName = 'intervalGenScript@nisc'
+        }
+
         var listOfAssetImports = [];
         var meterNumber = '';
         var meterStatus = '';
@@ -90,10 +94,10 @@
             county = '';
             range = '';
             linemanServiceArea = '';
-            owner = 'jwetzel@nisc';
+            owner = ownerName;
             latitude = '';
             longitude = '';
-            serviceLocationOwner = 'jwetzel@nisc';
+            serviceLocationOwner = ownerName;
             locationType = 'SERVICE';
             customAttributes = '';
             serviceLocationID = 'sl' + listToCreate[x];
@@ -117,9 +121,9 @@
         return listOfAssetImports;        
     }
 
-    function createFile(list, fileName) {
+    function createFile(list, fileName, ownerName) {
         var data = '';
-            data += createAssetsFromList(list);
+            data += createAssetsFromList(list, ownerName);
         fs.writeFileSync(__dirname + '/../Output/GenericAssetImportParser_' + fileName + ".csv", data);
     }
 }());
