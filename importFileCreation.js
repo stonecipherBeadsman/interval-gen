@@ -36,12 +36,12 @@
             readingsBlueprint.flowDirection = process.argv[12];
             readingsBlueprint.meterName = process.argv[13];
             readingsBlueprint.usePrefix = (parseInt(process.argv[6]) > 1 ? true : false);
-            readingsBlueprint.randomMissingReadings = JSON.parse(process.argv[15]);
-            readingsBlueprint.randomDigitsInName = JSON.parse(process.argv[16]);
-            readingsBlueprint.useUtcOffset = JSON.parse(process.argv[17]);
-            readingsBlueprint.genRandomLifeLikeData = JSON.parse(process.argv[18]);
-            readingsBlueprint.createGAIFileForMeters = JSON.parse(process.argv[19]);
-            readingsBlueprint.ownerName = process.argv[20];
+            readingsBlueprint.randomMissingReadings = JSON.parse(process.argv[14]);
+            readingsBlueprint.randomDigitsInName = JSON.parse(process.argv[15]);
+            readingsBlueprint.useUtcOffset = JSON.parse(process.argv[16]);
+            readingsBlueprint.genRandomLifeLikeData = JSON.parse(process.argv[17]);
+            readingsBlueprint.createGAIFileForMeters = JSON.parse(process.argv[18]);
+            readingsBlueprint.ownerName = process.argv[19];
 
             createReadings(readingsBlueprint);
         }

@@ -3,7 +3,13 @@
 	module.exports = displayInfo;
 
 	function displayInfo(readingsBlueprint, displayType) {
+		var meterName = '';
 		if (displayType === 'parameters') {
+			if (readingsBlueprint.meterName === '_' & readingsBlueprint.howManyMeters === -1){
+				meterName = 'Meters from /Input/metersList.txt'; 
+			} else {
+				meterName = readingsBlueprint.meterName;
+			}
 			console.log('------------------------------------------',
 	                    '\n--------------Parameters Used-------------',
 	                    '\n------------------------------------------',
@@ -29,7 +35,7 @@
 	                    '\n------------------------------------------',
 	                    '\n11| flowDirection:',readingsBlueprint.flowDirection,
 	                    '\n------------------------------------------',
-	                    '\n12| meterName:',readingsBlueprint.meterName,
+	                    '\n12| meterName:',meterName,
 	                    '\n------------------------------------------',
 	                    '\n13| usePrefix: (assigned automatically) ',readingsBlueprint.usePrefix,
 	                    '\n------------------------------------------',                
