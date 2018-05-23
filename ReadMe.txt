@@ -85,15 +85,11 @@ To run this script, first install node.js
 			------------------------------------------
 			19| ownerName: undefined
 			------------------------------------------
-	This will create two files in /Output one called 'OutputFileName.txt' that has 690 days of readings for one meter with life like data that has aproximately 
-	24 KWH usage per day, and one called 'GenericAssetImportParser_OutputFileName.csv' which contains an entry for importing the asset. If parameter 18 is false, 
-	no Generic Asset Import Parser file will be created.
+This will create two files in /Output one called 'OutputFileName.txt' that has 690 days of readings for one meter with life like data that has aproximately 24 KWH usage per day, and one called 'GenericAssetImportParser_OutputFileName.csv' which contains an entry for importing the asset. If parameter 18 is false, no Generic Asset Import Parser file will be created.
 
-	If you add an owner name at the end of the call and createGAIFileForMeters (parameter 18) is true:
-		'node importFileCreation.js 2016 1 1 690 1 OutputFileName 0 24 24 1 FORWARD MeterName false false false true true name@domain'
-	The owner name in 'GenericAssetImportParser_OutputFileName.csv' will be 'name@domain', if it remains blank then a default owner will be inserted.
+If you add an owner name at the end of the call and createGAIFileForMeters (parameter 18) is true:
+'node importFileCreation.js 2016 1 1 690 1 OutputFileName 0 24 24 1 FORWARD MeterName false false false true true name@domain'
+The owner name in 'GenericAssetImportParser_OutputFileName.csv' will be 'name@domain', if it remains blank then a default owner will be inserted.
 
 'node importFileCreation.js 2016 1 1 690 -1 OutputFileName 0 24 24 1 FORWARD _ false false false true true'
-	This will create two files in /Output one called 'OutputFileName.txt' that has 690 days of readings for n meters with life like data that has aproximately 
-	24 KWH usage per day where n is the number of meter ids in 'Input/meterList.txt', and one called 'GenericAssetImportParser_OutputFileName.csv' which contains 
-	an entry for each meter id in 'Input/meterList.txt'. If parameter 18 is false, no Generic Asset Import Parser file will be created.
+This will create two files in /Output one called 'OutputFileName.txt' that has 690 days of readings for n meters with life like data that has aproximately 24 KWH usage per day where n is the number of meter ids in 'Input/meterList.txt', and one called 'GenericAssetImportParser_OutputFileName.csv' which contains an entry for each meter id in 'Input/meterList.txt'. If parameter 18 is false, no Generic Asset Import Parser file will be created.
