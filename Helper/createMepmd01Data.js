@@ -6,6 +6,7 @@
     var path = require('path');
 
     var monthEngine = require( path.resolve(__dirname ,'../Helper/monthEngine.js'));
+    var getDaysInMonth = monthEngine.getDaysInMonth;
     var Counter = require( path.resolve(__dirname ,'../Helper/Counter.js'));
     var getBooleanValue = require( path.resolve(__dirname ,'../Helper/getBooleanValue.js'));
     var setUtcOffset = require( path.resolve(__dirname ,'../Helper/setUtcOffset.js'));
@@ -43,7 +44,7 @@
         var textOut = '';
         var counter = new Counter(readingsBlueprint.readingsPerDay);
         var countDown = new Counter();
-        var dayOfTheMonthCount = 0;
+        var dayOfTheMonthCount = dd;
         var daysInCurrentMonth = 0;
         var daysLeftInCurrentMonth = 0;
         var isLastDayOfMonth = 0;
@@ -65,7 +66,7 @@
 
         do {
             for (var x = 0; x < readingsBlueprint.durationInDays; x++) {
-                daysInCurrentMonth = monthEngine(yyyy, mm);
+                daysInCurrentMonth = getDaysInMonth(yyyy, mm);
                 //Start the count
                 if (x === 0) {
                     daysLeftInCurrentMonth = syncDdAndDayOfTheMonthCount(dd, daysInCurrentMonth);
@@ -150,7 +151,7 @@
                                 intervalLengthTimeValue = 0;
                             }
                         }
-                        countDown.initCountDown(syncDdAndDayOfTheMonthCount(lastDayDd, monthEngine(lastDayYyyy, lastDayMm)));
+                        countDown.initCountDown(syncDdAndDayOfTheMonthCount(lastDayDd, getDaysInMonth(lastDayYyyy, lastDayMm)));
                     } else {
                         intervalLengthTimeValue += dateTransition(intervalRowSegment, readingsBlueprint.readingsPerDay, hh);
                     }
@@ -218,7 +219,7 @@
                         yyyy++;
                     }
                     dd = 1;
-                   dayOfTheMonthCount = 0;
+                   dayOfTheMonthCount = 1;
                }
             }
             cumulativeReadingValuesCollection.push(cumulativeReadingValues);

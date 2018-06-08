@@ -38,8 +38,8 @@ function buildDatesObjectArray(daysBackFromLastDayOfMonth, lengthInYears) {
 	var endYear = startYear + lengthInYears;
 	for (var year = startYear; year < endYear; year++) {
 		for (var month = 1; month <= 12; month++) {
-			for (var day = 1; day <= monthEngine(year, month); day++) {
-				if (day > monthEngine(year, month) - daysBackFromLastDayOfMonth) {
+			for (var day = 1; day <= monthEngine.getDaysInMonth(year, month); day++) {
+				if (day > monthEngine.getDaysInMonth(year, month) - daysBackFromLastDayOfMonth) {
 					date.year = year; 
 					date.month = month; 
 					date.day = day;

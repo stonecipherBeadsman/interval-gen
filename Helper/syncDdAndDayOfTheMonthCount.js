@@ -3,11 +3,13 @@
     module.exports = syncDdAndDayOfTheMonthCount;
 
     function syncDdAndDayOfTheMonthCount(dd, daysInCurrentMonth) {
-        if (dd >= 1) {
+       // if (dd > 1) {
+        //    console.log('in if');
             return daysInCurrentMonth - dd;
-        } else {
-            return daysInCurrentMonth;
-        }
+        // } else {
+        //     console.log('in else');
+        //     return daysInCurrentMonth;
+        // }
     }
 
 }());

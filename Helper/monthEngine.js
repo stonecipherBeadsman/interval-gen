@@ -4,25 +4,28 @@
     else (it is a leap year)*/
 ;(function() {
     'use strict';
-    module.exports = monthEngine;
-    
-    function monthEngine(year, month) {
-        function isLeapYear(year) {
-            if ((year % 4) !== 0) {
-                return 28;
-            } else if ((year % 100) !== 0) {
-                return 29;
-            } else if ((year % 400) !== 0) {
-                return 28;
-            } else {
-                return 29;
-            }
-        }
+    module.exports = {
+        getDaysInMonth,
+        getDaysInFebForYear
+    };
 
+    function getDaysInFebForYear(year) {
+        if ((year % 4) !== 0) {
+            return 28;
+        } else if ((year % 100) !== 0) {
+            return 29;
+        } else if ((year % 400) !== 0) {
+            return 28;
+        } else {
+            return 29;
+        }
+    }
+    
+    function getDaysInMonth(year, month) {
         var ret = {
             months: {
                 '1': 31,
-                '2': isLeapYear(year),
+                '2': getDaysInFebForYear(year),
                 '3': 31,
                 '4': 30,
                 '5': 31,

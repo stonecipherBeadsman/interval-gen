@@ -18,7 +18,7 @@
         var ret = {
             readingsPerHour: readingsPerHour,
             number: 0,
-            daysLeftInCurrentMonth: 0,
+            //daysLeftInCurrentMonth: 0,
             increment: function() {
                 var ret = 0;
                 if (this.readingsPerHour - 1 > this.number) {

@@ -8,9 +8,10 @@ var test = {}
 var daysInCurrentMonth;
 for (var year = 2016; year < 2017; year++) {
 	for (var month = 1; month <= 3; month++) {
-		daysInCurrentMonth = monthEngine(year, month)
+		daysInCurrentMonth = monthEngine.getDaysInMonth(year, month)
 		for (var day = 1; day <= daysInCurrentMonth; day++) {
 			test.arguments = [day, daysInCurrentMonth];
+			//console.log(day, daysInCurrentMonth, daysInCurrentMonth - day);
 			test.expected = (daysInCurrentMonth - day);
 			test.testLable = year + ' ' + month + ' ' + daysInCurrentMonth + ' - ' + day + ' = ' + test.expected;
 			tests.push(test);
@@ -23,6 +24,7 @@ describe('syncDdAndDayOfTheMonthCount Test \n\tShould take a day of the month co
 	tests.forEach(function(test) {
 		it(test.testLable, function() {
 			var returnedData = syncDdAndDayOfTheMonthCount.apply(null, test.arguments);
+			//console.log(returnedData);
 			assert.equal(returnedData, test.expected);		
 		});
 	});

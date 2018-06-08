@@ -228,9 +228,10 @@ describe('importFileCreation Test \n\tShould take user input and generate a text
             returnedData = returnedData.data.split('\n');
             returnedData[returnedData.length-1] === '' ? returnedData.pop() : false;
             for (var i = 0; i < returnedData.length; i++) {
-            	comparatorResults.push(returnedData[i] === test.expected[i]);
+                comparatorResults.push(returnedData[i] === test.expected[i]);
+                assert.equal(returnedData[i], test.expected[i]);
             }
-            assert.equal((comparatorResults.indexOf(false) < 0), true);
+            //assert.equal((comparatorResults.indexOf(false) < 0), true);
         });
     });
 

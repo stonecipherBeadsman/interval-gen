@@ -9,7 +9,7 @@ var daysInCurrentMonth;
 var results = [];
 for (var year = 2016; year < 2017; year++) {
 	for (var month = 1; month <= 3; month++) {
-		daysInCurrentMonth = monthEngine(year, month)
+		daysInCurrentMonth = monthEngine.getDaysInMonth(year, month)
 		for (var day = 1; day <= daysInCurrentMonth; day++) {
 			test.arguments = [day, daysInCurrentMonth, (daysInCurrentMonth - day)];
 			test.expected = (daysInCurrentMonth - day) === 0 ? true : false;

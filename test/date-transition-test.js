@@ -60,7 +60,7 @@ function buildTestCasesAndExpectedResults(intervalRowSegmentValues, readingsPerd
 			for (var m = 0; m < intervalRowSegmentValueList.length; m++) {
 				test.arguments = [intervalRowSegmentValueList[m],intervalRowSegmentValueList.length,hhValues[k]];
 				test.expected = dateTransitionBaseline.apply(null, test.arguments);
-				test.testLable = test.arguments + ' Should yeild ' + test.expected;
+				test.testLabel = test.arguments + ' Should yeild ' + test.expected;
 				tests.push(test);
 				test = {};
 			}
@@ -71,7 +71,7 @@ function buildTestCasesAndExpectedResults(intervalRowSegmentValues, readingsPerd
 
 describe('dateTransition Test', function() {
 	tests.forEach(function(test) {
-		it(test.testLable, function() {
+		it(test.testLabel, function() {
 			var returnedData = dateTransition.apply(null, test.arguments);
 			assert.equal(returnedData, test.expected);		
 		});
